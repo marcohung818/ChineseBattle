@@ -64,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\ChassBoard.cs" />
-    <Compile Include="Assets\Script\GameEvents.cs" />
     <Compile Include="Assets\Script\Tile.cs" />
     <Compile Include="Assets\Script\Words\WordMaster.cs" />
     <Reference Include="UnityEngine">

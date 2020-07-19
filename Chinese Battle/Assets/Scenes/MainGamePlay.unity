@@ -2100,7 +2100,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.68748146}
   m_AnchorMax: {x: 1, y: 0.9668272}
-  m_AnchoredPosition: {x: 0, y: -5.4191284}
+  m_AnchoredPosition: {x: 0, y: -5.4190674}
   m_SizeDelta: {x: 0, y: 11.57312}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &426946844
@@ -9182,6 +9182,7 @@ MonoBehaviour:
   - {fileID: 2030788647884321693, guid: 6f3ac6662190445e285ee9d51fdff46f, type: 3}
   - {fileID: 2030788647884321693, guid: c03eac8f621e9435ca3da73e0a7871b0, type: 3}
   - {fileID: 2030788647884321693, guid: 1ca86cc0effe24932b48157ec3c5fdbd, type: 3}
+  emptyList: []
 --- !u!1 &1686407806 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8414065810666833429, guid: 7a1d8650a07ee4517b6ee9c5774c03d8,
@@ -9378,50 +9379,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rowPos: 4
   colPos: 7
---- !u!1 &1713302000
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1713302001}
-  - component: {fileID: 1713302002}
-  m_Layer: 0
-  m_Name: SelfGameEvent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1713302001
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1713302000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -150.58682, y: 957.0033, z: -424.6638}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1713302002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1713302000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 831c1d2cbeb6c465bad560f8a5732371, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointerOnHold: 0
 --- !u!1001 &1783276561
 PrefabInstance:
   m_ObjectHideFlags: 0

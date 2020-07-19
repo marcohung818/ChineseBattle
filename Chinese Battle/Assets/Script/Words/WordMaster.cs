@@ -12,32 +12,35 @@ public class WordMaster : MonoBehaviour, IPointerDownHandler, IPointerEnterHandl
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
         SetSelected();
-        GameEvents.instance.pointerOnHold = true;
-        GameEvents.instance.RecordImage(this.gameObject);
+        ChassBoard.instance.pointerOnHold = true;
+        ChassBoard.instance.RecordImage(this.gameObject);
     }
 
     //When the pointer is down and drag 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        if (GameEvents.instance.pointerOnHold && !onSelected)
+        if (ChassBoard.instance.pointerOnHold && !onSelected && ChassBoard.instance.CheckTileDiff(this.gameObject))
         {
             SetSelected();
-            GameEvents.instance.RecordImage(this.gameObject);
+            ChassBoard.instance.RecordImage(this.gameObject);
         }
     }
 
+    //When the pointer is up, then count the word
     void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
     {
-        GameEvents.instance.pointerOnHold = false;
-        GameEvents.instance.EndRecordImage();
+        ChassBoard.instance.pointerOnHold = false;
+        ChassBoard.instance.EndRecordImage();
     }
 
+    //Gray out the selected word
     public void SetSelected()
     {
         onSelected = true;
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
     }
 
+    //unGray the selected word
     public void SetAvailable()
     {
         onSelected = false;
