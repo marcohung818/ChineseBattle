@@ -184,7 +184,7 @@ public class ChassBoard : MonoBehaviour
     }
 
     //Check the user point on the last 2 tile for remove the last tile in the clip array
-    public bool CheckRedo(GameObject word)
+    public bool CheckPopClip(GameObject word)
     {
         int imageListCountMax = imageList.Count;
         if(imageList[imageListCountMax - 2].GetComponentInParent<Tile>().rowPos == word.GetComponentInParent<Tile>().rowPos &&

@@ -25,7 +25,7 @@ public class Word : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IP
             SetSelected();
             ChassBoard.instance.RecordImage(this.gameObject);
         }
-        else if(onSelected && ChassBoard.instance.CheckRedo(this.gameObject)){
+        else if(onSelected && ChassBoard.instance.CheckPopClip(this.gameObject)){
             ChassBoard.instance.PopClip();
         }
     }
