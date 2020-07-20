@@ -6,12 +6,16 @@ using System;
 
 public class ChassBoard : MonoBehaviour
 {
+    //Public variable List 
     [HideInInspector]public static ChassBoard instance;
-    [SerializeField] private GameObject[] imagelist;
-    [HideInInspector] public bool pointerOnHold = false; //Check the pointer holding
-    List<GameObject> imageList = new List<GameObject>(); //The List in clip
+    [HideInInspector]public bool pointerOnHold = false; //Check the pointer holding
     [HideInInspector]public Tile[,] mainTileBoard = new Tile[8, 8];
-    [HideInInspector]public List<Tile> emptyList = new List<Tile>();
+    [HideInInspector]public Stack<Tile> emptyList = new Stack<Tile>();
+    public GameObject word;
+
+    //Private variable List
+    List<GameObject> imageList = new List<GameObject>(); //The List in clip
+    List<Tile[]> column = new List<Tile[]>();
 
     //Set Singleton
     void Awake()
@@ -25,6 +29,15 @@ public class ChassBoard : MonoBehaviour
         GenBoardImageByRandom();
         onRecordImage += RecordWording;
         onEndRecordImage += Checkwording;
+        column.Add(new Tile[] { mainTileBoard[0, 0], mainTileBoard[1, 0], mainTileBoard[2, 0], mainTileBoard[3, 0], mainTileBoard[4, 0], mainTileBoard[5, 0], mainTileBoard[6, 0], mainTileBoard[7, 0] });
+        column.Add(new Tile[] { mainTileBoard[0, 1], mainTileBoard[1, 1], mainTileBoard[2, 1], mainTileBoard[3, 1], mainTileBoard[4, 1], mainTileBoard[5, 1], mainTileBoard[6, 1], mainTileBoard[7, 1] });
+        column.Add(new Tile[] { mainTileBoard[0, 2], mainTileBoard[1, 2], mainTileBoard[2, 2], mainTileBoard[3, 2], mainTileBoard[4, 2], mainTileBoard[5, 2], mainTileBoard[6, 2], mainTileBoard[7, 2] });
+        column.Add(new Tile[] { mainTileBoard[0, 3], mainTileBoard[1, 3], mainTileBoard[2, 3], mainTileBoard[3, 3], mainTileBoard[4, 3], mainTileBoard[5, 3], mainTileBoard[6, 3], mainTileBoard[7, 3] });
+        column.Add(new Tile[] { mainTileBoard[0, 4], mainTileBoard[1, 4], mainTileBoard[2, 4], mainTileBoard[3, 4], mainTileBoard[4, 4], mainTileBoard[5, 4], mainTileBoard[6, 4], mainTileBoard[7, 4] });
+        column.Add(new Tile[] { mainTileBoard[0, 5], mainTileBoard[1, 5], mainTileBoard[2, 5], mainTileBoard[3, 5], mainTileBoard[4, 5], mainTileBoard[5, 5], mainTileBoard[6, 5], mainTileBoard[7, 5] });
+        column.Add(new Tile[] { mainTileBoard[0, 6], mainTileBoard[1, 6], mainTileBoard[2, 6], mainTileBoard[3, 6], mainTileBoard[4, 6], mainTileBoard[5, 6], mainTileBoard[6, 6], mainTileBoard[7, 6] });
+        column.Add(new Tile[] { mainTileBoard[0, 7], mainTileBoard[1, 7], mainTileBoard[2, 7], mainTileBoard[3, 7], mainTileBoard[4, 7], mainTileBoard[5, 7], mainTileBoard[6, 7], mainTileBoard[7, 7] });
+
     }
 
     void UpdateEmptyTile()
@@ -34,7 +47,7 @@ public class ChassBoard : MonoBehaviour
         {
             if(t.transform.childCount == 0)
             {
-                emptyList.Add(t);
+                emptyList.Push(t);
             }
         }
         RefillEmptyTile();
@@ -42,7 +55,10 @@ public class ChassBoard : MonoBehaviour
 
     void RefillEmptyTile()
     {
-        GenBoardImageByRandom(emptyList);
+        //foreach(Tile t in emptyList)
+        //{
+
+        //}
     }
 
     void RecordTiles()
@@ -58,8 +74,10 @@ public class ChassBoard : MonoBehaviour
     {
         foreach(Tile t in mainTileBoard)
         {
-            int dice = UnityEngine.Random.Range(0, imagelist.Length);
-            Instantiate(imagelist[dice], t.transform);
+            int dice = UnityEngine.Random.Range(0, WordTypeHolder.instance.wordTypeList.Length);
+            Instantiate(word, t.transform);
+            t.transform.GetChild(0).GetComponent<Image>().color = WordTypeHolder.instance.wordTypeList[dice].word_image.color;
+            t.transform.GetChild(0).GetComponent<Word>().word = WordTypeHolder.instance.wordTypeList[dice].s_word;
         }
     }
 
@@ -67,8 +85,10 @@ public class ChassBoard : MonoBehaviour
     {
         foreach (Tile emptyPos in emptyPosList)
         {
-            int dice = UnityEngine.Random.Range(0, imagelist.Length);
-            Instantiate(imagelist[dice], emptyPos.transform);
+            int dice = UnityEngine.Random.Range(0, WordTypeHolder.instance.wordTypeList.Length);
+            Instantiate(word, emptyPos.transform);
+            emptyPos.transform.GetChild(0).GetComponent<Image>().color = WordTypeHolder.instance.wordTypeList[dice].word_image.color;
+            emptyPos.transform.GetChild(0).GetComponent<Word>().word = WordTypeHolder.instance.wordTypeList[dice].s_word;
         }
     }
 
@@ -98,22 +118,38 @@ public class ChassBoard : MonoBehaviour
     }
     void Checkwording()
     {
-        if (imageList[0].name == imageList[1].name)
+        int imageListCountMax = imageList.Count;
+        if (imageListCountMax == 1)
         {
-            WordShoot();
+            if (imageList[0].GetComponent<Word>().word == "a")
+            {
+                WordShoot();
+            }
+            else
+            {
+                imageList[imageListCountMax - 1].GetComponent<Word>().SetAvailable();
+                imageList.Clear();
+            }
         }
         else
         {
-            foreach (GameObject word in imageList)
+            if (imageList[0].GetComponent<Word>().word == imageList[1].GetComponent<Word>().word)
             {
-                word.GetComponent<WordMaster>().SetAvailable();
+                WordShoot();
             }
-            imageList.Clear();
+            else
+            {
+                foreach (GameObject word in imageList)
+                {
+                    word.GetComponent<Word>().SetAvailable();
+                }
+                imageList.Clear();
+            }
         }
         UpdateEmptyTile();
     }
 
-    //After checking the word, if match then shoot
+    //After checking the word, if match then shoot, doing damage
     void WordShoot()
     {
         foreach (GameObject word in imageList)
@@ -137,8 +173,7 @@ public class ChassBoard : MonoBehaviour
         {
             check *= -1;
         }
-        print("check:" + check);
-        if (check > 1)
+        if (check != 1)
         {
             return false;
         }
@@ -147,4 +182,27 @@ public class ChassBoard : MonoBehaviour
             return true;
         }
     }
+
+    //Check the user point on the last 2 tile for remove the last tile in the clip array
+    public bool CheckRedo(GameObject word)
+    {
+        int imageListCountMax = imageList.Count;
+        if(imageList[imageListCountMax - 2].GetComponentInParent<Tile>().rowPos == word.GetComponentInParent<Tile>().rowPos &&
+            imageList[imageListCountMax - 2].GetComponentInParent<Tile>().colPos == word.GetComponentInParent<Tile>().colPos)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void PopClip()
+    {
+        int imageListCountMax = imageList.Count;
+        imageList[imageListCountMax - 1].GetComponent<Word>().SetAvailable();
+        imageList.RemoveAt(imageListCountMax - 1);
+    }
+
 }

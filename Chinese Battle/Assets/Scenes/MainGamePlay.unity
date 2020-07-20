@@ -9013,6 +9013,7 @@ GameObject:
   - component: {fileID: 1678234456}
   - component: {fileID: 1678234455}
   - component: {fileID: 1678234458}
+  - component: {fileID: 1678234459}
   m_Layer: 5
   m_Name: ChassBoard
   m_TagString: Untagged
@@ -9176,13 +9177,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 226f06daf9b1e4858937caf134e69d17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagelist:
-  - {fileID: 2030788647884321693, guid: 9835dbf0834754e92a474009547243d4, type: 3}
-  - {fileID: 2030788647884321693, guid: e2191c62322ac4e438df0a8f0ae9a776, type: 3}
-  - {fileID: 2030788647884321693, guid: 6f3ac6662190445e285ee9d51fdff46f, type: 3}
-  - {fileID: 2030788647884321693, guid: c03eac8f621e9435ca3da73e0a7871b0, type: 3}
-  - {fileID: 2030788647884321693, guid: 1ca86cc0effe24932b48157ec3c5fdbd, type: 3}
+  pointerOnHold: 0
   emptyList: []
+--- !u!114 &1678234459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678234453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db20039db89d4d8d8babbff9a5536bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wordTypeList:
+  - s_word: a
+    word_image: {fileID: 4139614976695262534, guid: 9bbe05204f8c344dc9f1ec2e11771a55,
+      type: 3}
+  - s_word: b
+    word_image: {fileID: 4139614976695262534, guid: 55a58b4b1809a45ee89bcaae8fe46f18,
+      type: 3}
+  - s_word: c
+    word_image: {fileID: 4139614976695262534, guid: c8a38c76efa144a4dba014db2ee6c816,
+      type: 3}
+  - s_word: d
+    word_image: {fileID: 4139614976695262534, guid: ce18f77b4eb0f4411bb452d8b1740237,
+      type: 3}
+  - s_word: e
+    word_image: {fileID: 4139614976695262534, guid: 6bb8ff462e8474c6797604b3c76ec5fb,
+      type: 3}
 --- !u!1 &1686407806 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8414065810666833429, guid: 7a1d8650a07ee4517b6ee9c5774c03d8,

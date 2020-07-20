@@ -65,7 +65,8 @@
   <ItemGroup>
     <Compile Include="Assets\Script\ChassBoard.cs" />
     <Compile Include="Assets\Script\Tile.cs" />
-    <Compile Include="Assets\Script\Words\WordMaster.cs" />
+    <Compile Include="Assets\Script\Word.cs" />
+    <Compile Include="Assets\Script\WordTypeHolder.cs" />
     <Reference Include="UnityEngine">
       <HintPath>/Applications/Unity/Hub/Editor/2019.4.0f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
