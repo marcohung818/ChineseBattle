@@ -13,6 +13,7 @@ public class WordType
 public class WordTypeHolder : MonoBehaviour
 {
     [HideInInspector] public static WordTypeHolder instance;
+    [HideInInspector] public Image emptyImage;
     public WordType[] wordTypeList;
     void Awake()
     {
