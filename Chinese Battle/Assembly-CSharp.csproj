@@ -63,11 +63,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Bullet.cs" />
     <Compile Include="Assets\Script\ChassBoard.cs" />
-    <Compile Include="Assets\Script\ConnectSQL.cs" />
     <Compile Include="Assets\Script\Element.cs" />
+    <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\Script\Tile.cs" />
     <Compile Include="Assets\Script\WordTypeHolder.cs" />
+    <None Include="Assets\Ninja Files\Read Me.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.0f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
