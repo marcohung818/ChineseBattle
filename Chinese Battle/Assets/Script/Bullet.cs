@@ -13,7 +13,6 @@ public class Bullet : MonoBehaviour
     void Awake()
     {
         rb = this.gameObject.GetComponent<Rigidbody2D>();
-        print("bullet gen");
     }
 
     void Start()
@@ -35,5 +34,15 @@ public class Bullet : MonoBehaviour
     public void Move(int speed)
     {
         rb.velocity = gameObject.GetComponentInParent<Transform>().right * speed;
+    }
+
+    public void UpdateTag(string tag)
+    {
+        this.gameObject.tag = tag;
+    }
+
+    public int ReturnDamage()
+    {
+        return damage;
     }
 }
