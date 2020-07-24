@@ -66,9 +66,12 @@
     <Compile Include="Assets\Script\Bullet.cs" />
     <Compile Include="Assets\Script\ChassBoard.cs" />
     <Compile Include="Assets\Script\Edge.cs" />
-    <Compile Include="Assets\Script\Element.cs" />
     <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\Script\Tile.cs" />
+    <Compile Include="Assets\Script\UI.cs" />
+    <Compile Include="Assets\Script\Word\ChassBoardElement.cs" />
+    <Compile Include="Assets\Script\Word\ElementRoot.cs" />
+    <Compile Include="Assets\Script\Word\FunctionPanelElement.cs" />
     <Compile Include="Assets\Script\WordTypeHolder.cs" />
     <None Include="Assets\Ninja Files\Read Me.txt" />
     <Reference Include="UnityEngine">

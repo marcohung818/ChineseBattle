@@ -9,17 +9,18 @@ using System.Linq;
 public class ChassBoard : MonoBehaviour
 {
     //Public variable List 
-    [HideInInspector]public static ChassBoard instance;
-    [HideInInspector]public bool pointerOnHold = false; //Check the pointer holding
-    [HideInInspector]public Tile[,] mainTileBoard = new Tile[8, 8];
-    [HideInInspector]public List<Tile> emptyList = new List<Tile>();
+    [HideInInspector] public static ChassBoard instance;
+    [HideInInspector] public bool pointerOnHold = false; //Check the pointer holding
+    [HideInInspector] public Tile[,] mainTileBoard = new Tile[8, 8];
+    [HideInInspector] public List<Tile> emptyList = new List<Tile>();
+    [HideInInspector] public bool onDrag = false;
     public GameObject bullet;
     
 
     //Private variable List
     List<GameObject> imageList = new List<GameObject>(); //The List in clip
     List<Tile[]> column = new List<Tile[]>();
-    [SerializeField] GameObject word;
+    [SerializeField] GameObject wordObject;
     GameObject player, opponent;
 
     //Set Singleton
@@ -52,7 +53,7 @@ public class ChassBoard : MonoBehaviour
         DoReFillTile();
         foreach(Tile t in mainTileBoard)
         {
-            if (t.transform.GetComponentInChildren<Element>().Word == "k")
+            if (t.transform.GetComponentInChildren<ElementRoot>().Word == "k")
             {
                 emptyList.Add(t);
                 print(t.name);
@@ -76,10 +77,10 @@ public class ChassBoard : MonoBehaviour
     {
         for(int i = colOfTiles.Length - 1; i > 0; i--)
         {
-            if(colOfTiles[i].GetComponentInChildren<Element>().Word == "k" && colOfTiles[i - 1].GetComponentInChildren<Element>().Word != "k")
+            if(colOfTiles[i].GetComponentInChildren<ElementRoot>().Word == "k" && colOfTiles[i - 1].GetComponentInChildren<ElementRoot>().Word != "k")
             {
-                colOfTiles[i].GetComponentInChildren<Element>().Word = colOfTiles[i - 1].GetComponentInChildren<Element>().Word;
-                colOfTiles[i - 1].GetComponentInChildren<Element>().Word = "k";
+                colOfTiles[i].GetComponentInChildren<ElementRoot>().Word = colOfTiles[i - 1].GetComponentInChildren<ElementRoot>().Word;
+                colOfTiles[i - 1].GetComponentInChildren<ElementRoot>().Word = "k";
                 return true;
             }
         }
@@ -102,8 +103,8 @@ public class ChassBoard : MonoBehaviour
         foreach(Tile t in mainTileBoard)
         {
             int dice = UnityEngine.Random.Range(0, WordTypeHolder.instance.wordTypeList.Length);
-            Instantiate(word, t.transform);
-            t.transform.GetChild(0).GetComponent<Element>().Word = WordTypeHolder.instance.wordTypeList[dice].s_word;
+            Instantiate(wordObject, t.transform);
+            t.transform.GetChild(0).GetComponent<ElementRoot>().Word = WordTypeHolder.instance.wordTypeList[dice].s_word;
         }
     }
 
@@ -113,10 +114,18 @@ public class ChassBoard : MonoBehaviour
         foreach (Tile emptyPos in emptyPosList)
         {
             int dice = UnityEngine.Random.Range(0, WordTypeHolder.instance.wordTypeList.Length);
-            emptyPos.transform.GetChild(0).GetComponent<Element>().Word = WordTypeHolder.instance.wordTypeList[dice].s_word;
+            emptyPos.transform.GetChild(0).GetComponent<ElementRoot>().Word = WordTypeHolder.instance.wordTypeList[dice].s_word;
         }
     }
 
+    public void RefreshBoardImageByRandom()
+    {
+        foreach(Tile t in mainTileBoard)
+        {
+            int dice = UnityEngine.Random.Range(0, WordTypeHolder.instance.wordTypeList.Length);
+            t.transform.GetChild(0).GetComponent<ElementRoot>().Word = WordTypeHolder.instance.wordTypeList[dice].s_word;
+        }
+    }
 
     //The Action set for the pointer down and drag
     event Action<GameObject> onRecordImage;
@@ -146,19 +155,19 @@ public class ChassBoard : MonoBehaviour
         int imageListCountMax = imageList.Count;
         if (imageListCountMax == 1)
         {
-            if (imageList[0].GetComponent<Element>().Word == "a")
+            if (imageList[0].GetComponent<ElementRoot>().Word == "a")
             {
                 WordShoot();
             }
             else
             {
-                imageList[imageListCountMax - 1].GetComponent<Element>().SetAvailable();
+                imageList[imageListCountMax - 1].GetComponent<ChassBoardElement>().SetAvailable();
                 imageList.Clear();
             }
         }
         else
         {
-            if (imageList[0].GetComponent<Element>().Word == imageList[1].GetComponent<Element>().Word) //this have to change to real checking situation
+            if (imageList[0].GetComponent<ElementRoot>().Word == imageList[1].GetComponent<ElementRoot>().Word) //this have to change to real checking situation
             {
                 WordShoot();
             }
@@ -166,7 +175,7 @@ public class ChassBoard : MonoBehaviour
             {
                 foreach (GameObject word in imageList)
                 {
-                    word.GetComponent<Element>().SetAvailable();
+                    word.GetComponent<ChassBoardElement>().SetAvailable();
                 }
                 imageList.Clear();
             }
@@ -181,9 +190,8 @@ public class ChassBoard : MonoBehaviour
         foreach (GameObject word in imageList)
         {
             print(word.GetComponentInParent<Tile>().name);
-            //DestroyImmediate(word);
-            word.GetComponent<Element>().Word = "k";
-            word.GetComponent<Element>().SetAvailable();
+            word.GetComponent<ElementRoot>().Word = "k";
+            word.GetComponent<ChassBoardElement>().SetAvailable();
         }
         imageList.Clear();
         UpdateEmptyTile();
@@ -231,7 +239,7 @@ public class ChassBoard : MonoBehaviour
     public void PopClip()
     {
         int imageListCountMax = imageList.Count;
-        imageList[imageListCountMax - 1].GetComponent<Element>().SetAvailable();
+        imageList[imageListCountMax - 1].GetComponent<ChassBoardElement>().SetAvailable();
         imageList.RemoveAt(imageListCountMax - 1);
     }
 

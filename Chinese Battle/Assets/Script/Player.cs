@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]int hp = 100;
+    [SerializeField] int maxHp = 10;
+    [SerializeField] int hp;
     public Animator animator;
     //character skill
 
     // Start is called before the first frame update
     void Start()
     {
+        hp = maxHp;
         animator = this.gameObject.GetComponent<Animator>();
     }
 
@@ -46,7 +48,9 @@ public class Player : MonoBehaviour
     {
         if(collision.tag != this.gameObject.tag && collision.GetComponent<Bullet>() != null)
         {
+            animator.SetTrigger("Injured");
             Injured(collision.GetComponent<Bullet>().ReturnDamage());
+            Destroy(collision.gameObject);
         }
     }
 }
