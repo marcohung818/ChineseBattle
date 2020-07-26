@@ -68,7 +68,7 @@
     <Compile Include="Assets\Script\Edge.cs" />
     <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\Script\Tile.cs" />
-    <Compile Include="Assets\Script\UI.cs" />
+    <Compile Include="Assets\Script\UI\UISwiper.cs" />
     <Compile Include="Assets\Script\Word\ChassBoardElement.cs" />
     <Compile Include="Assets\Script\Word\ElementRoot.cs" />
     <Compile Include="Assets\Script\Word\FunctionPanelElement.cs" />
