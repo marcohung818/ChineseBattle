@@ -23,13 +23,11 @@ public class ElementRoot : MonoBehaviour
     {
         if (gameObject.transform.parent.tag == "ChassBoard")
         {
-            print("Chassboard");
             this.gameObject.GetComponent<ChassBoardElement>().enabled = true;
             this.gameObject.GetComponent<FunctionPanelElement>().enabled = false;
         }
         else if (gameObject.transform.parent.tag == "FunctionPanel")
         {
-            print("functionpanel");
             this.gameObject.GetComponent<ChassBoardElement>().enabled = false;
             this.gameObject.GetComponent<FunctionPanelElement>().enabled = true;
         }
