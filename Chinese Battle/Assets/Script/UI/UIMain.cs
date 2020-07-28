@@ -5,8 +5,5 @@ using UnityEngine.SceneManagement;
 
 public class UIMain : MonoBehaviour
 {
-    public void testbutton()
-    {
-        SceneManager.LoadScene("NetworkLauncher");
-    }
+
 }
