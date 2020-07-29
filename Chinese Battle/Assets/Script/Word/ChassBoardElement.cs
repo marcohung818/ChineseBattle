@@ -61,10 +61,8 @@ public class ChassBoardElement : MonoBehaviour, IPointerDownHandler, IPointerEnt
     //When doing the replace wording
     public void OnDrop(PointerEventData eventData)
     {
-        print("Ondrop");
        if(eventData.pointerDrag != null && eventData.pointerDrag.GetComponent<FunctionPanelElement>().isActiveAndEnabled)
         {
-            print("getted in");
             this.gameObject.GetComponent<ElementRoot>().Word = eventData.pointerDrag.GetComponent<ElementRoot>().Word;
             this.gameObject.transform.parent.GetComponent<Tile>().ResumeOriginalColor();
             ChassBoard.instance.onDrag = false;

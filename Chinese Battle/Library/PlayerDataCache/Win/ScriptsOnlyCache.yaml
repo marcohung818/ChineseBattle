@@ -1,5 +1,11 @@
 ScriptsOnlyBuild:
   usedScripts:
+    Assembly-CSharp-firstpass.dll:
+    - IngameDebugConsole.DebugLogItem
+    - IngameDebugConsole.DebugLogManager
+    - IngameDebugConsole.DebugLogPopup
+    - IngameDebugConsole.DebugLogRecycledListView
+    - IngameDebugConsole.DebugsOnScrollListener
     Assembly-CSharp.dll:
     - Bullet
     - ChassBoard
@@ -9,6 +15,8 @@ ScriptsOnlyBuild:
     - FunctionPanelElement
     - PhotonConnection
     - Player
+    - PlayerController
+    - PlayerSpawner
     - Tile
     - UIMain
     - UISwiper
@@ -23,6 +31,9 @@ ScriptsOnlyBuild:
     - Photon.Pun.Demo.PunBasics.PlayerUI
     - Photon.Pun.Demo.SlotRacer.PlayerControl
     - Photon.Pun.Demo.SlotRacer.Utils.SplineWalker
+    PhotonUnityNetworking.Editor.dll:
+    - Photon.Pun.PhotonTransformViewEditor
+    - Photon.Pun.PhotonViewInspector
     PhotonUnityNetworking.dll:
     - Photon.Pun.PhotonAnimatorView
     - Photon.Pun.PhotonRigidbodyView
@@ -42,21 +53,31 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     UnityEngine.UI.dll:
+    - UnityEngine.EventSystems.BaseInput
     - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.EventTrigger
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.GridLayoutGroup
+    - UnityEngine.UI.HorizontalLayoutGroup
     - UnityEngine.UI.Image
+    - UnityEngine.UI.InputField
+    - UnityEngine.UI.LayoutElement
+    - UnityEngine.UI.RectMask2D
+    - UnityEngine.UI.ScrollRect
+    - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Shadow
     - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
@@ -101,27 +122,59 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11284}
     - Class: 114
+      Script: {instanceID: 11536}
+    - Class: 114
+      Script: {instanceID: 11798}
+    - Class: 114
+      Script: {instanceID: 11958}
+    - Class: 114
       Script: {instanceID: 12022}
     - Class: 114
       Script: {instanceID: 12328}
     - Class: 114
-      Script: {instanceID: 12384}
-    - Class: 114
       Script: {instanceID: 12424}
+    - Class: 114
+      Script: {instanceID: 12712}
     - Class: 114
       Script: {instanceID: 12834}
     - Class: 114
+      Script: {instanceID: 12922}
+    - Class: 114
       Script: {instanceID: 13264}
+    - Class: 114
+      Script: {instanceID: 13458}
+    - Class: 114
+      Script: {instanceID: 13512}
     - Class: 114
       Script: {instanceID: 13550}
     - Class: 114
       Script: {instanceID: 13644}
     - Class: 114
-      Script: {instanceID: 13990}
+      Script: {instanceID: 13992}
     - Class: 114
-      Script: {instanceID: 14312}
+      Script: {instanceID: 14310}
     - Class: 114
-      Script: {instanceID: 14682}
+      Script: {instanceID: 14530}
+    - Class: 114
+      Script: {instanceID: 14546}
+    - Class: 114
+      Script: {instanceID: 14600}
+    - Class: 114
+      Script: {instanceID: 14680}
+    - Class: 114
+      Script: {instanceID: 19404}
+    - Class: 114
+      Script: {instanceID: 33252}
+    - Class: 114
+      Script: {instanceID: 55366}
+    - Class: 114
+      Script: {instanceID: 55368}
+    - Class: 114
+      Script: {instanceID: 55370}
+    - Class: 114
+      Script: {instanceID: 55372}
+    - Class: 114
+      Script: {instanceID: 55378}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -165,6 +218,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 54
       Script: {instanceID: 0}
+    - Class: 61
+      Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
     - Class: 74
@@ -200,9 +255,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11482}
     - Class: 114
+      Script: {instanceID: 11536}
+    - Class: 114
+      Script: {instanceID: 11798}
+    - Class: 114
+      Script: {instanceID: 11958}
+    - Class: 114
       Script: {instanceID: 12328}
     - Class: 114
+      Script: {instanceID: 12384}
+    - Class: 114
       Script: {instanceID: 12446}
+    - Class: 114
+      Script: {instanceID: 12712}
     - Class: 114
       Script: {instanceID: 12816}
     - Class: 114
@@ -218,21 +283,41 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13436}
     - Class: 114
-      Script: {instanceID: 13764}
+      Script: {instanceID: 13458}
     - Class: 114
-      Script: {instanceID: 13796}
+      Script: {instanceID: 13512}
     - Class: 114
-      Script: {instanceID: 13806}
+      Script: {instanceID: 13740}
     - Class: 114
-      Script: {instanceID: 13990}
+      Script: {instanceID: 13766}
     - Class: 114
-      Script: {instanceID: 14548}
+      Script: {instanceID: 13798}
     - Class: 114
-      Script: {instanceID: 14682}
+      Script: {instanceID: 13808}
     - Class: 114
-      Script: {instanceID: 14720}
+      Script: {instanceID: 13992}
     - Class: 114
-      Script: {instanceID: 25208}
+      Script: {instanceID: 14530}
+    - Class: 114
+      Script: {instanceID: 14546}
+    - Class: 114
+      Script: {instanceID: 14600}
+    - Class: 114
+      Script: {instanceID: 14680}
+    - Class: 114
+      Script: {instanceID: 14718}
+    - Class: 114
+      Script: {instanceID: 33252}
+    - Class: 114
+      Script: {instanceID: 55366}
+    - Class: 114
+      Script: {instanceID: 55368}
+    - Class: 114
+      Script: {instanceID: 55370}
+    - Class: 114
+      Script: {instanceID: 55372}
+    - Class: 114
+      Script: {instanceID: 55378}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -252,6 +337,8 @@ ScriptsOnlyBuild:
     - Class: 198
       Script: {instanceID: 0}
     - Class: 199
+      Script: {instanceID: 0}
+    - Class: 212
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
@@ -1274,6 +1361,12 @@ ScriptsOnlyBuild:
     className: CurrentRoomNameProperty
   - hash:
       serializedVersion: 2
+      Hash: 91272640df09d1cc874872497b4a11c5
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PhotonConnection
+  - hash:
+      serializedVersion: 2
       Hash: 32f8aa17c8c80321b4c28ac9073a84b3
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit
@@ -1682,12 +1775,48 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: 91272640df09d1cc874872497b4a11c5
+      Hash: b5ef24ba020006fed5bb9af1f172e5dd
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: PhotonConnection
+    className: PlayerSpawner
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerController
+  - hash:
+      serializedVersion: 2
+      Hash: 5d72f7002966b891d5cb66f953848ebe
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: IngameDebugConsole
+    className: DebugLogRecycledListView
+  - hash:
+      serializedVersion: 2
+      Hash: 150d2705ec079b79d52ccce665aab8e1
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: IngameDebugConsole
+    className: DebugLogPopup
+  - hash:
+      serializedVersion: 2
+      Hash: a8745838a673fe0d5cf956969774a16b
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: IngameDebugConsole
+    className: DebugLogItem
+  - hash:
+      serializedVersion: 2
+      Hash: 9b070fd11003a7ac517c876788f0fb2a
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: IngameDebugConsole
+    className: DebugsOnScrollListener
+  - hash:
+      serializedVersion: 2
+      Hash: e489d8ca028dffedc1fe8fffc5e1cf33
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: IngameDebugConsole
+    className: DebugLogManager
   platform: 5
   scenePathNames:
   - Assets/Scenes/UI.unity
   - Assets/Scenes/MainGamePlay.unity
-  playerPath: C:/Users/Marco Hung/Desktop/Chinese Battle.exe
+  playerPath: C:/Users/Marco Hung/Desktop/Chinese Battle_Data/Chinese Battle.exe
