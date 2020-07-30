@@ -78,10 +78,9 @@
     <Compile Include="Assets\Script\Battle\Bullet.cs" />
     <Compile Include="Assets\Script\Battle\Edge.cs" />
     <Compile Include="Assets\Script\Battle\Player.cs" />
-    <Compile Include="Assets\Script\Battle\PlayerSpawner.cs" />
     <Compile Include="Assets\Script\ChassBoard.cs" />
+    <Compile Include="Assets\Script\GenManager.cs" />
     <Compile Include="Assets\Script\Network\PhotonConnection.cs" />
-    <Compile Include="Assets\Script\PlayerController.cs" />
     <Compile Include="Assets\Script\Tile.cs" />
     <Compile Include="Assets\Script\UI\UIMain.cs" />
     <Compile Include="Assets\Script\UI\UISwiper.cs" />

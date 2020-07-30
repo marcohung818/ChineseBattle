@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PhotonConnection : MonoBehaviourPunCallbacks
 {
@@ -56,7 +57,13 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.CurrentRoom.IsOpen = false;
         print("A player was joined the room, Matching is ready to begin");
-        PhotonNetwork.LoadLevel("MainGamePlay");
+        LoadArena();
+    }
+
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    {
+        print("Opponent was surrender");
+        LeaveRoom();
     }
 
     public void FindingOpponent()
@@ -103,4 +110,22 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
         SetPlayerName(name);
     }
 
+    public override void OnLeftRoom()
+    {
+        SceneManager.LoadScene("UI");
+    }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public void LoadArena()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            print("I am master");
+            PhotonNetwork.LoadLevel("MainGamePlay");
+        }
+    }
 }

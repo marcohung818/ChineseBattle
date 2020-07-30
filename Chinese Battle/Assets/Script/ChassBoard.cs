@@ -5,8 +5,10 @@ using UnityEngine.UI;
 using System;
 using System.Threading;
 using System.Linq;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class ChassBoard : MonoBehaviour
+public class ChassBoard : MonoBehaviourPun
 {
     //Public variable List 
     [HideInInspector] public static ChassBoard instance;
@@ -21,12 +23,13 @@ public class ChassBoard : MonoBehaviour
     List<GameObject> imageList = new List<GameObject>(); //The List in clip
     List<Tile[]> column = new List<Tile[]>();
     [SerializeField] GameObject wordObject;
-    GameObject player, opponent;
 
     //Set Singleton
     void Awake()
     {
         instance = this;
+        print("change");
+        this.transform.SetParent(GameObject.Find("ChassPanel").GetComponent<Transform>(), false);
     }
     
     void Start()
@@ -43,8 +46,6 @@ public class ChassBoard : MonoBehaviour
         column.Add(new Tile[] { mainTileBoard[0, 5], mainTileBoard[1, 5], mainTileBoard[2, 5], mainTileBoard[3, 5], mainTileBoard[4, 5], mainTileBoard[5, 5], mainTileBoard[6, 5], mainTileBoard[7, 5] });
         column.Add(new Tile[] { mainTileBoard[0, 6], mainTileBoard[1, 6], mainTileBoard[2, 6], mainTileBoard[3, 6], mainTileBoard[4, 6], mainTileBoard[5, 6], mainTileBoard[6, 6], mainTileBoard[7, 6] });
         column.Add(new Tile[] { mainTileBoard[0, 7], mainTileBoard[1, 7], mainTileBoard[2, 7], mainTileBoard[3, 7], mainTileBoard[4, 7], mainTileBoard[5, 7], mainTileBoard[6, 7], mainTileBoard[7, 7] });
-        player = GameObject.Find("Player");
-        opponent = GameObject.Find("Opponent");
     }
 
     //call fill up, and
@@ -104,6 +105,7 @@ public class ChassBoard : MonoBehaviour
         {
             int dice = UnityEngine.Random.Range(0, WordTypeHolder.instance.wordTypeList.Length);
             Instantiate(wordObject, t.transform);
+            //PhotonNetwork.Instantiate(wordObject.name, Vector3.zero, Quaternion.identity);
             t.transform.GetChild(0).GetComponent<ElementRoot>().Word = WordTypeHolder.instance.wordTypeList[dice].s_word;
         }
     }
@@ -127,8 +129,8 @@ public class ChassBoard : MonoBehaviour
         }
     }
 
-    //The Action set for the pointer down and drag
-    event Action<GameObject> onRecordImage;
+        //The Action set for the pointer down and drag
+        event Action<GameObject> onRecordImage;
     public void RecordImage(GameObject word)
     {
         if (onRecordImage != null)
@@ -186,7 +188,6 @@ public class ChassBoard : MonoBehaviour
     //After checking the word, if match then shoot, doing damage
     void WordShoot()
     {
-        player.GetComponent<Player>().Attack();
         foreach (GameObject word in imageList)
         {
             print(word.GetComponentInParent<Tile>().name);
