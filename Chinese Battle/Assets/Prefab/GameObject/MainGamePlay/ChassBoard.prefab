@@ -1263,7 +1263,7 @@ PrefabInstance:
     - target: {fileID: 8414065810666833429, guid: 7a1d8650a07ee4517b6ee9c5774c03d8,
         type: 3}
       propertyPath: m_Name
-      value: Tile
+      value: Tile (0)
       objectReference: {fileID: 0}
     - target: {fileID: 8414065810666833429, guid: 7a1d8650a07ee4517b6ee9c5774c03d8,
         type: 3}

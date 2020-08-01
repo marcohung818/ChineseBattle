@@ -83,5 +83,4 @@ public class ChassBoardElement : MonoBehaviour, IPointerDownHandler, IPointerEnt
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 
-
 }

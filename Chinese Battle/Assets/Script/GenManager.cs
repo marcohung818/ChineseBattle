@@ -6,15 +6,15 @@ using Photon.Realtime;
 
 public class GenManager : MonoBehaviourPun
 {
- /*   [SerializeField] GameObject ChassBoard;
+    [SerializeField] GameObject ChassBoard;
     // Start is called before the first frame update
     void Start()
     {
-        if(PhotonNetwork.NickName == "Marco")
+        if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.Instantiate(ChassBoard.name, Vector3.zero, Quaternion.identity);
         }
-    }*/
+    }
 
 
 }

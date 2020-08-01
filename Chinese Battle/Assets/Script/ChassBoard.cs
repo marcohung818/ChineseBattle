@@ -28,12 +28,12 @@ public class ChassBoard : MonoBehaviourPun
     void Awake()
     {
         instance = this;
-        print("change");
         this.transform.SetParent(GameObject.Find("ChassPanel").GetComponent<Transform>(), false);
     }
     
     void Start()
     {
+
         RecordTiles();
         GenBoardImageByRandom();
         onRecordImage += RecordWording;
@@ -101,12 +101,16 @@ public class ChassBoard : MonoBehaviourPun
     //called once, for in game first generate
     private void GenBoardImageByRandom()
     {
+        int assignParentCount = 0;
         foreach(Tile t in mainTileBoard)
         {
             int dice = UnityEngine.Random.Range(0, WordTypeHolder.instance.wordTypeList.Length);
-            Instantiate(wordObject, t.transform);
-            //PhotonNetwork.Instantiate(wordObject.name, Vector3.zero, Quaternion.identity);
-            t.transform.GetChild(0).GetComponent<ElementRoot>().Word = WordTypeHolder.instance.wordTypeList[dice].s_word;
+            //Instantiate(wordObject, t.transform);
+            var word = PhotonNetwork.Instantiate(wordObject.name, Vector3.zero, Quaternion.identity);
+            word.GetComponent<ElementRoot>().AssignTileAsParent(assignParentCount.ToString());
+            word.GetComponent<ElementRoot>().Word = WordTypeHolder.instance.wordTypeList[dice].s_word;
+            //t.transform.GetChild(0).GetComponent<ElementRoot>().Word = WordTypeHolder.instance.wordTypeList[dice].s_word;
+            assignParentCount++;
         }
     }
 
@@ -240,6 +244,10 @@ public class ChassBoard : MonoBehaviourPun
     public void PopClip()
     {
         int imageListCountMax = imageList.Count;
+        if(imageListCountMax  == 0)
+        {
+            return;
+        }
         imageList[imageListCountMax - 1].GetComponent<ChassBoardElement>().SetAvailable();
         imageList.RemoveAt(imageListCountMax - 1);
     }

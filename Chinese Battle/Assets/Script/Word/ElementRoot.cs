@@ -21,16 +21,6 @@ public class ElementRoot : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        if (gameObject.transform.parent.tag == "ChassBoard")
-        {
-            this.gameObject.GetComponent<ChassBoardElement>().enabled = true;
-            this.gameObject.GetComponent<FunctionPanelElement>().enabled = false;
-        }
-        else if (gameObject.transform.parent.tag == "FunctionPanel")
-        {
-            this.gameObject.GetComponent<ChassBoardElement>().enabled = false;
-            this.gameObject.GetComponent<FunctionPanelElement>().enabled = true;
-        }
     }
     void Update()
     {
@@ -66,4 +56,27 @@ public class ElementRoot : MonoBehaviour
             transform.GetComponent<Image>().color = WordTypeHolder.instance.emptyImage.color;
         }
     }
+
+    public void AssignTileAsParent(string TileNumber)
+    {
+        string parent = "Tile (" + TileNumber + ")";
+        print(parent);
+        this.gameObject.transform.SetParent(GameObject.Find(parent).GetComponent<Transform>(), false);
+        EnableScript();
+    }
+
+    public void EnableScript()
+    {
+        if (gameObject.transform.parent.tag == "ChassBoard")
+        {
+            this.gameObject.GetComponent<ChassBoardElement>().enabled = true;
+            this.gameObject.GetComponent<FunctionPanelElement>().enabled = false;
+        }
+        else if (gameObject.transform.parent.tag == "FunctionPanel")
+        {
+            this.gameObject.GetComponent<ChassBoardElement>().enabled = false;
+            this.gameObject.GetComponent<FunctionPanelElement>().enabled = true;
+        }
+    }
+
 }
