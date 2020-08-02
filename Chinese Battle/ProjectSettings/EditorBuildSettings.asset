@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/PlayfabTesting.unity
+    path: Assets/Scenes/PlayfabLogin.unity
     guid: 2fbf56a9484662f4f98d1ba660024155
   - enabled: 1
     path: Assets/Scenes/UI.unity
