@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ElementRoot : MonoBehaviour
 {
+    public int[] wordPos = new int[2];
     public string Word
     {
         get
@@ -15,10 +16,16 @@ public class ElementRoot : MonoBehaviour
         {
             word = value;
             ApplyImage(value);
+            EnableScript();
         }
     }
     [SerializeField] private string word;
     // Update is called once per frame
+    private void Awake()
+    {
+        wordPos[0] = this.gameObject.GetComponentInParent<Tile>().rowPos;
+        wordPos[1] = this.gameObject.GetComponentInParent<Tile>().colPos;
+    }
     void Start()
     {
     }

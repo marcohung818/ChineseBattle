@@ -4,13 +4,16 @@ using System.Numerics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class ChassBoardElement : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerUpHandler, IDropHandler, IPointerExitHandler
 {
-
+    private void Awake()
+    {
+    }
     void Start()
     {
-        
     }
     void Update()
     {
@@ -22,6 +25,7 @@ public class ChassBoardElement : MonoBehaviour, IPointerDownHandler, IPointerEnt
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
         SetSelected();
+        ChassBoard.instance.RPCShowOtherSelected(this.gameObject.GetComponent<ElementRoot>().wordPos);
         ChassBoard.instance.pointerOnHold = true;
         ChassBoard.instance.RecordImage(this.gameObject);
     }
@@ -32,12 +36,13 @@ public class ChassBoardElement : MonoBehaviour, IPointerDownHandler, IPointerEnt
         if (ChassBoard.instance.pointerOnHold && !onSelected && ChassBoard.instance.CheckTileDiff(this.gameObject))
         {
             SetSelected();
+            ChassBoard.instance.RPCShowOtherSelected(this.gameObject.GetComponent<ElementRoot>().wordPos);
             ChassBoard.instance.RecordImage(this.gameObject);
         }
         else if(onSelected && ChassBoard.instance.CheckPopClip(this.gameObject)){
             ChassBoard.instance.PopClip();
         }
-        else if(ChassBoard.instance.onDrag == true)
+        else if(ChassBoard.instance.onDrag == true) //Change the outside frame color when replace the word
         {
             this.gameObject.transform.parent.GetComponent<Image>().color = new Color32(0, 0, 0, 255);
         }

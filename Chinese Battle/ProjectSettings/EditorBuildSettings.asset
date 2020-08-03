@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PlayfabLogin.unity
     guid: 2fbf56a9484662f4f98d1ba660024155
   - enabled: 1
