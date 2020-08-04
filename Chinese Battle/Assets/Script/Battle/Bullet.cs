@@ -9,26 +9,27 @@ public class Bullet : MonoBehaviour
 {
     private int damage;
     private Rigidbody2D rb;
+
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         rb = this.gameObject.GetComponent<Rigidbody2D>();
     }
 
-    void Start()
+    private void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }
 
-    public void UpdateDamage(int index)
+    public void UpdateDamage(int damageValue)
     {
-        damage = index;
+        damage = damageValue;
     }
 
     public void Move(int speed)

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Tile : MonoBehaviour
@@ -9,13 +6,15 @@ public class Tile : MonoBehaviour
     //Record the Tile position
     public int rowPos;
     public int colPos;
-    Color32 originalColor;
+    private Color32 originalColor;
 
-    void Awake()
+    //Record the OriginalColor
+    private void Awake()
     {
         originalColor = this.gameObject.GetComponent<Image>().color;
     }
 
+    //Resume Color from the original
     public void ResumeOriginalColor()
     {
         this.gameObject.GetComponent<Image>().color = originalColor;

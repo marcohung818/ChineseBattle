@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+//The Class for Record the Word Type
 [System.Serializable]
 public class WordType
 {
@@ -13,7 +12,6 @@ public class WordType
 public class WordTypeHolder : MonoBehaviour
 {
     [HideInInspector] public static WordTypeHolder instance;
-    [HideInInspector] public Image emptyImage;
     public WordType[] wordTypeList;
     void Awake()
     {

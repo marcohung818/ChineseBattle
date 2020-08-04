@@ -1,26 +1,24 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PhotonConnection : MonoBehaviourPunCallbacks
 {
-    [SerializeField]GameObject LoadingPanel;
-    const string PlayerPrefsNameKey = "PlayerName";
-    bool Connecting = false;
-    const string GameVersion = "1";
-    const int MaxPlayersPerRoom = 2;
+    [SerializeField] private GameObject LoadingPanel;
+    private const string PlayerPrefsNameKey = "PlayerName";
+    private bool Connecting = false;
+    private const string GameVersion = "1";
+    private const int MaxPlayersPerRoom = 2;
 
-    void Awake()
+    private void Awake()
     {
+        //When the Master Changed Scene, the Client will follow
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     public override void OnConnectedToMaster()
     {
-        print("Connected To Master");
         if (Connecting)
         {
             PhotonNetwork.JoinRandomRoom();
@@ -81,18 +79,7 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
         }
     }
 
-    void CheckSaveAndGetName()
-    {
-        if (!PlayerPrefs.HasKey(PlayerPrefsNameKey)) 
-        { 
-            return; 
-        }
-
-        string defaultName = PlayerPrefs.GetString(PlayerPrefsNameKey);
-        SetPlayerName(defaultName);
-    }
-
-    void SetPlayerName(string name)
+    public void SetPlayerName(string name)
     {
         PhotonNetwork.NickName = name;
         PlayerPrefs.SetString(PlayerPrefsNameKey, name);

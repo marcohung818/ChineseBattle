@@ -20,27 +20,26 @@ public class ElementRoot : MonoBehaviour
         }
     }
     [SerializeField] private string word;
-    // Update is called once per frame
+
     private void Awake()
     {
+        //Save the Word Position from Tile, for the ShowOtherSelected Purpose
         wordPos[0] = this.gameObject.GetComponentInParent<Tile>().rowPos;
         wordPos[1] = this.gameObject.GetComponentInParent<Tile>().colPos;
     }
-    void Start()
+
+    private void Start()
     {
+
     }
-    void Update()
+
+    private void Update()
     {
         
     }
 
     //apply the style from the from holder
-    void ApplyImageFromHolder(int index)
-    {
-        transform.GetComponent<Image>().color = WordTypeHolder.instance.wordTypeList[index].word_image.color;
-    }
-
-    void ApplyImage(string word)
+    private void ApplyImage(string word)
     {
         if (word != "k")
         {
@@ -55,21 +54,9 @@ public class ElementRoot : MonoBehaviour
             }
             if (wordPos != -1)
             {
-                ApplyImageFromHolder(wordPos);
+                transform.GetComponent<Image>().color = WordTypeHolder.instance.wordTypeList[wordPos].word_image.color;
             }
         }
-        else
-        {
-            transform.GetComponent<Image>().color = WordTypeHolder.instance.emptyImage.color;
-        }
-    }
-
-    public void AssignTileAsParent(string TileNumber)
-    {
-        string parent = "Tile (" + TileNumber + ")";
-        print(parent);
-        this.gameObject.transform.SetParent(GameObject.Find(parent).GetComponent<Transform>(), false);
-        EnableScript();
     }
 
     public void EnableScript()

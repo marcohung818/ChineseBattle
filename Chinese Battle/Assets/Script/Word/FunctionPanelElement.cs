@@ -13,10 +13,11 @@ public class FunctionPanelElement : MonoBehaviour, IBeginDragHandler, IEndDragHa
 
     private void Awake()
     {
-        UpdateRectTransform();
-        UpdateCanvasGroup();
-        RecordOriginalPos();
+        rectTransform = gameObject.GetComponent<RectTransform>();
+        canvasGroup = gameObject.GetComponent<CanvasGroup>();
+        originalPos = this.gameObject.transform.position;
     }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         canvasGroup.alpha = 0.6f;
@@ -26,36 +27,20 @@ public class FunctionPanelElement : MonoBehaviour, IBeginDragHandler, IEndDragHa
 
     public void OnDrag(PointerEventData eventData)
     {
-        print("ondrag");
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        print("enddrag");
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
         ChassBoard.instance.onDrag = false;
         ResumeOriginalPos();
     }
 
-    void UpdateRectTransform()
-    {
-        rectTransform = gameObject.GetComponent<RectTransform>();
-    }
-
-    void UpdateCanvasGroup()
-    {
-        canvasGroup = gameObject.GetComponent<CanvasGroup>();
-    }
-
-    void ResumeOriginalPos()
+    //Back to the OrginialPos, Called after EndDrag
+    private void ResumeOriginalPos()
     {
         this.gameObject.transform.position = originalPos;
-    }
-
-    void RecordOriginalPos()
-    {
-        originalPos = this.gameObject.transform.position;
     }
 }

@@ -9,23 +9,21 @@ using Photon.Realtime;
 
 public class ChassBoardElement : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerUpHandler, IDropHandler, IPointerExitHandler
 {
-    private void Awake()
+    [HideInInspector] public bool onSelected = false; //Not allow reselected again
+
+    private void Start()
     {
+
     }
-    void Start()
-    {
-    }
-    void Update()
+    private void Update()
     {
         
     }
-    [HideInInspector]public bool onSelected = false; //Not allow reselected again
 
     //When the pointer is down
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
-        SetSelected();
-        ChassBoard.instance.RPCShowOtherSelected(this.gameObject.GetComponent<ElementRoot>().wordPos);
+        ChassBoard.instance.RPCShowAllSelected(this.gameObject.GetComponent<ElementRoot>().wordPos);
         ChassBoard.instance.pointerOnHold = true;
         ChassBoard.instance.RecordImage(this.gameObject);
     }
@@ -35,8 +33,7 @@ public class ChassBoardElement : MonoBehaviour, IPointerDownHandler, IPointerEnt
     {
         if (ChassBoard.instance.pointerOnHold && !onSelected && ChassBoard.instance.CheckTileDiff(this.gameObject))
         {
-            SetSelected();
-            ChassBoard.instance.RPCShowOtherSelected(this.gameObject.GetComponent<ElementRoot>().wordPos);
+            ChassBoard.instance.RPCShowAllSelected(this.gameObject.GetComponent<ElementRoot>().wordPos);
             ChassBoard.instance.RecordImage(this.gameObject);
         }
         else if(onSelected && ChassBoard.instance.CheckPopClip(this.gameObject)){

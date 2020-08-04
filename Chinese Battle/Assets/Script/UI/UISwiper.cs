@@ -1,26 +1,23 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Transactions;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using Vector2 = UnityEngine.Vector2;
 
 public class UISwiper : MonoBehaviour, IDragHandler, IEndDragHandler
 {
-    Vector2 panelLocation;
-    Vector2 subSelectedLocation;
-    GameObject subSelected;
-    GameObject subSpecialPanel;
-    GameObject subFDPanel;
-    GameObject subMainPanel;
-    GameObject subDrawPanel;
-    GameObject subShopPanel;
-    public float percentThrehold = 0.2f;
-    public float easing = 0.5f;
-    int totalPages = 5;
-    int currentPages = 3;
+    private Vector2 panelLocation;
+    private Vector2 subSelectedLocation;
+    private GameObject subSelected;
+    private GameObject subSpecialPanel;
+    private GameObject subFDPanel;
+    private GameObject subMainPanel;
+    private GameObject subDrawPanel;
+    private GameObject subShopPanel;
+    private float percentThrehold = 0.2f;
+    private float easing = 0.5f;
+    private int totalPages = 5;
+    private int currentPages = 3;
+
     public void OnDrag(PointerEventData eventData)
     {
         float posDiff = eventData.pressPosition.x - eventData.position.x;
@@ -81,7 +78,7 @@ public class UISwiper : MonoBehaviour, IDragHandler, IEndDragHandler
     }
 
     // Start is called before the first frame update
-    void Start()
+   private void Start()
     {
         panelLocation = transform.position;
         subSelected = GameObject.Find("Sub_Selected");

@@ -42,6 +42,9 @@ MonoBehaviour:
   - GenBoardImageByMasterOrder
   - ShowOtherSelected
   - ShowOtherAvailable
+  - RequestRefreshBoard
+  - ShowAllAvailable
+  - ShowAllSelected
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
