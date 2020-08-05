@@ -45,6 +45,7 @@ MonoBehaviour:
   - RequestRefreshBoard
   - ShowAllAvailable
   - ShowAllSelected
+  - ChangeAllEmptyImage
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

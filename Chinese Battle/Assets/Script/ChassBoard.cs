@@ -66,7 +66,6 @@ public class ChassBoard : MonoBehaviourPun
             if (t.transform.GetComponentInChildren<ElementRoot>().Word == "k")
             {
                 emptyList.Add(t);
-                print(t.name);
             }
         }
         GenBoardImageByRandom(emptyList);
@@ -206,7 +205,6 @@ public class ChassBoard : MonoBehaviourPun
             }
             else
             {
-                imageList[imageListCountMax - 1].GetComponent<ChassBoardElement>().SetAvailable();
                 RPCShowAllAvailable(imageList[imageListCountMax - 1].GetComponent<ElementRoot>().wordPos);
                 imageList.Clear();
             }
@@ -221,7 +219,7 @@ public class ChassBoard : MonoBehaviourPun
             {
                 foreach (GameObject word in imageList)
                 {
-                    word.GetComponent<ChassBoardElement>().SetAvailable();
+                    RPCShowAllAvailable(word.GetComponent<ElementRoot>().wordPos);
                 }
                 imageList.Clear();
             }
@@ -238,7 +236,6 @@ public class ChassBoard : MonoBehaviourPun
             word.GetComponent<ElementRoot>().Word = "k";
             RPCShowAllAvailable(word.GetComponent<ElementRoot>().wordPos);
         }
-
         imageList.Clear();
         UpdateEmptyTile();
     }
@@ -299,16 +296,6 @@ public class ChassBoard : MonoBehaviourPun
     }
     #endregion
     
-    public void SetSelected(int row, int col)
-    {
-        mainTileBoard[row, col].gameObject.GetComponentInChildren<ChassBoardElement>().SetSelected();
-    }
-
-    public void SetAvailable(int row, int col)
-    {
-        mainTileBoard[row, col].gameObject.GetComponentInChildren<ChassBoardElement>().SetAvailable();
-    }
-
     #region RPCRelated
     public void RPCShowAllSelected(int[] SelectedArray)
     {
@@ -318,6 +305,11 @@ public class ChassBoard : MonoBehaviourPun
     public void RPCShowAllAvailable(int[] SelectedArray)
     {
         this.GetComponent<PhotonView>().RPC("ShowAllAvailable", RpcTarget.All, (int[])SelectedArray);
+    }
+
+    public void RPCCahngeAllEmptyImage(int[] SelectedArray)
+    {
+        this.GetComponent<PhotonView>().RPC("ChangeAllEmptyImage", RpcTarget.All, (int[])SelectedArray);
     }
 
     [PunRPC]
@@ -330,20 +322,24 @@ public class ChassBoard : MonoBehaviourPun
     public void ShowAllSelected(int[] wordPos)
     {
         mainTileBoard[wordPos[0], wordPos[1]].gameObject.GetComponentInChildren<ChassBoardElement>().SetSelected();
-        //SetSelected(wordPos[0], wordPos[1]);
     }
 
     [PunRPC]
     public void ShowAllAvailable(int[] wordPos)
     {
         mainTileBoard[wordPos[0], wordPos[1]].gameObject.GetComponentInChildren<ChassBoardElement>().SetAvailable();
-        //SetAvailable(wordPos[0], wordPos[1]);
     }
 
     [PunRPC]
     public void RequestRefreshBoard(string[] masterBoardOrder)
     {
         RefreshBoardImageByMasterRandom(masterBoardOrder);
+    }
+
+    [PunRPC]
+    public void ChangeAllEmptyImage(int[] wordPos)
+    {
+
     }
     #endregion
 }
