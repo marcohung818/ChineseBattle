@@ -251,17 +251,13 @@ public class ChassBoard : MonoBehaviourPun
         int colDiff = imageList[imageListCountMax - 1].GetComponentInParent<Tile>().colPos -
             word.GetComponentInParent<Tile>().colPos;
         int check = rowDiff + colDiff;
-        if (check < 0)
+        if ((check == 1 || check == -1) && (rowDiff >= -1 && rowDiff <= 1) && (colDiff >= -1 && colDiff <= 1))
         {
-            check *= -1;
-        }
-        if (check != 1)
-        {
-            return false;
+            return true;
         }
         else
         {
-            return true;
+            return false;
         }
     }
     #endregion
