@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ElementRoot : MonoBehaviour
 {
-    public int[] wordPos = new int[2];
     public string Word
     {
         get
@@ -24,13 +23,12 @@ public class ElementRoot : MonoBehaviour
     private void Awake()
     {
         //Save the Word Position from Tile, for the ShowOtherSelected Purpose
-        wordPos[0] = this.gameObject.GetComponentInParent<Tile>().rowPos;
-        wordPos[1] = this.gameObject.GetComponentInParent<Tile>().colPos;
+        EnableScript();
     }
 
     private void Start()
     {
-
+        ApplyImage(word);
     }
 
     private void Update()
@@ -56,6 +54,10 @@ public class ElementRoot : MonoBehaviour
             {
                 transform.GetComponent<Image>().color = WordTypeHolder.instance.wordTypeList[wordPos].word_image.color;
             }
+        }
+        else
+        {
+            transform.GetComponent<Image>().color = Color.black;
         }
     }
 

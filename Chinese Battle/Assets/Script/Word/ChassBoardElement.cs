@@ -10,10 +10,11 @@ using Photon.Realtime;
 public class ChassBoardElement : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerUpHandler, IDropHandler, IPointerExitHandler
 {
     [HideInInspector] public bool onSelected = false; //Not allow reselected again
-
+    public int[] wordPos = new int[2];
     private void Start()
     {
-
+        wordPos[0] = this.gameObject.GetComponentInParent<Tile>().rowPos;
+        wordPos[1] = this.gameObject.GetComponentInParent<Tile>().colPos;
     }
     private void Update()
     {
@@ -23,7 +24,7 @@ public class ChassBoardElement : MonoBehaviour, IPointerDownHandler, IPointerEnt
     //When the pointer is down
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
-        ChassBoard.instance.RPCShowAllSelected(this.gameObject.GetComponent<ElementRoot>().wordPos);
+        ChassBoard.instance.RPCShowAllSelected(this.gameObject.GetComponent<ChassBoardElement>().wordPos[0], this.gameObject.GetComponent<ChassBoardElement>().wordPos[1]);
         ChassBoard.instance.pointerOnHold = true;
         ChassBoard.instance.RecordImage(this.gameObject);
     }
@@ -33,7 +34,7 @@ public class ChassBoardElement : MonoBehaviour, IPointerDownHandler, IPointerEnt
     {
         if (ChassBoard.instance.pointerOnHold && !onSelected && ChassBoard.instance.CheckTileDiff(this.gameObject))
         {
-            ChassBoard.instance.RPCShowAllSelected(this.gameObject.GetComponent<ElementRoot>().wordPos);
+            ChassBoard.instance.RPCShowAllSelected(this.gameObject.GetComponent<ChassBoardElement>().wordPos[0], this.gameObject.GetComponent<ChassBoardElement>().wordPos[1]);
             ChassBoard.instance.RecordImage(this.gameObject);
         }
         else if(onSelected && ChassBoard.instance.CheckPopClip(this.gameObject)){
@@ -52,6 +53,7 @@ public class ChassBoardElement : MonoBehaviour, IPointerDownHandler, IPointerEnt
         ChassBoard.instance.EndRecordImage();
     }
 
+    //When selecting the pos to drop effect
     public void OnPointerExit(PointerEventData eventData)
     {
         if (ChassBoard.instance.onDrag == true)
@@ -65,7 +67,8 @@ public class ChassBoardElement : MonoBehaviour, IPointerDownHandler, IPointerEnt
     {
        if(eventData.pointerDrag != null && eventData.pointerDrag.GetComponent<FunctionPanelElement>().isActiveAndEnabled)
         {
-            this.gameObject.GetComponent<ElementRoot>().Word = eventData.pointerDrag.GetComponent<ElementRoot>().Word;
+            ChassBoard.instance.GetComponent<PhotonView>().RPC("ChangeDirectPos_All", RpcTarget.All, this.gameObject.GetComponent<ChassBoardElement>().wordPos[0], this.gameObject.GetComponent<ChassBoardElement>().wordPos[1], eventData.pointerDrag.GetComponent<ElementRoot>().Word);
+            //this.gameObject.GetComponent<ElementRoot>().Word = eventData.pointerDrag.GetComponent<ElementRoot>().Word;
             this.gameObject.transform.parent.GetComponent<Tile>().ResumeOriginalColor();
             ChassBoard.instance.onDrag = false;
         }

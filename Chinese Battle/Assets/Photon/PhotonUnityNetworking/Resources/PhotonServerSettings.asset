@@ -46,6 +46,11 @@ MonoBehaviour:
   - ShowAllAvailable
   - ShowAllSelected
   - ChangeAllEmptyImage
+  - DestoryWord
+  - ForceAllDoRefillTile
+  - ForceAllUpdateEmptyTile
+  - ChangeDirectPos_All
+  - AddRefreshCount
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

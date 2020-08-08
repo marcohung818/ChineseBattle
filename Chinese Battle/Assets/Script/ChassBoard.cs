@@ -17,7 +17,9 @@ public class ChassBoard : MonoBehaviourPun
     [HideInInspector] public List<Tile> emptyList = new List<Tile>();
     [HideInInspector] public bool onDrag = false;
     public GameObject bullet;
-    public string[] stringboard = new string[64];
+    public string[] masterBoardOrder = new string[64];
+    public int refreashCount;
+
 
     //Private variable List
     private List<GameObject> imageList = new List<GameObject>(); //The List in clip
@@ -40,10 +42,10 @@ public class ChassBoard : MonoBehaviourPun
             int transferBoardCount = 0;
             foreach (Tile t in mainTileBoard)
             {
-                stringboard[transferBoardCount] = t.GetComponentInChildren<ElementRoot>().Word;
+                masterBoardOrder[transferBoardCount] = t.GetComponentInChildren<ElementRoot>().Word;
                 transferBoardCount++;
             }
-            this.GetComponent<PhotonView>().RPC("GenBoardImageByMasterOrder", RpcTarget.Others, (string[])stringboard);
+            this.GetComponent<PhotonView>().RPC("GenBoardImageByMasterOrder", RpcTarget.Others, (string[])masterBoardOrder);
         }
         onRecordImage += RecordWording;
         onEndRecordImage += Checkwording;
@@ -60,8 +62,8 @@ public class ChassBoard : MonoBehaviourPun
     //call fill up, and
     private void UpdateEmptyTile()
     {
-        DoReFillTile();
-        foreach(Tile t in mainTileBoard)
+        emptyList.Clear();
+        foreach (Tile t in mainTileBoard)
         {
             if (t.transform.GetComponentInChildren<ElementRoot>().Word == "k")
             {
@@ -69,9 +71,9 @@ public class ChassBoard : MonoBehaviourPun
             }
         }
         GenBoardImageByRandom(emptyList);
-        emptyList.Clear();
     }
 
+    #region DoReFillTile
     //let the emptyed space filled up by the upper word
     private void DoReFillTile()
     {
@@ -95,6 +97,7 @@ public class ChassBoard : MonoBehaviourPun
         }
         return false;
     }
+    #endregion
 
     //Record the Tile to form a TileBoard Array
     private void RecordTiles()
@@ -119,15 +122,17 @@ public class ChassBoard : MonoBehaviourPun
     }
 
     //regenerate the word for empty space 
-    private void GenBoardImageByRandom(List<Tile> emptyPosList)
+    private void GenBoardImageByRandom(List<Tile> emptyList)
     {
-        foreach (Tile emptyPos in emptyPosList)
+        foreach (Tile emptyPos in emptyList)
         {
             int dice = UnityEngine.Random.Range(0, WordTypeHolder.instance.wordTypeList.Length);
-            emptyPos.transform.GetChild(0).GetComponent<ElementRoot>().Word = WordTypeHolder.instance.wordTypeList[dice].s_word;
+            //emptyPos.transform.GetChild(0).GetComponent<ElementRoot>().Word = WordTypeHolder.instance.wordTypeList[dice].s_word;
+            this.GetComponent<PhotonView>().RPC("ChangeDirectPos_All", RpcTarget.All, emptyPos.GetComponent<Tile>().rowPos, emptyPos.GetComponent<Tile>().colPos, WordTypeHolder.instance.wordTypeList[dice].s_word);
         }
     }
 
+    //For the non master client generate its init board image
     private void GenBoardImageByMasterRandom(string [] masterBoardOrder)
     {
         int masterBoardCount = 0;
@@ -139,23 +144,6 @@ public class ChassBoard : MonoBehaviourPun
         }
     }
 
-    public void RefreshBoardImageByRandom()
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            print("this is master");
-            int transferBoardCount = 0;
-            foreach (Tile t in mainTileBoard)
-            {
-                int dice = UnityEngine.Random.Range(0, WordTypeHolder.instance.wordTypeList.Length);
-                t.transform.GetChild(0).GetComponent<ElementRoot>().Word = WordTypeHolder.instance.wordTypeList[dice].s_word;
-                stringboard[transferBoardCount] = WordTypeHolder.instance.wordTypeList[dice].s_word;
-                transferBoardCount++;
-            }
-            this.GetComponent<PhotonView>().RPC("RequestRefreshBoard", RpcTarget.Others, (string[])stringboard);
-        }
-    }
-    
     private void RefreshBoardImageByMasterRandom(string[] masterBoardOrder)
     {
         int masterBoardCount = 0;
@@ -165,6 +153,7 @@ public class ChassBoard : MonoBehaviourPun
             masterBoardCount++;
         }
     }
+
     #endregion
 
     #region OnRecordImage
@@ -197,34 +186,19 @@ public class ChassBoard : MonoBehaviourPun
     void Checkwording()
     {
         int imageListCountMax = imageList.Count;
-        if (imageListCountMax == 1)
+        if (imageList[0].GetComponent<ElementRoot>().Word == imageList[1].GetComponent<ElementRoot>().Word) //this have to change to real checking situation
         {
-            if (imageList[0].GetComponent<ElementRoot>().Word == "a")
-            {
-                WordShoot();
-            }
-            else
-            {
-                RPCShowAllAvailable(imageList[imageListCountMax - 1].GetComponent<ElementRoot>().wordPos);
-                imageList.Clear();
-            }
+            WordShoot();
+            UpdateEmptyTile();
         }
         else
         {
-            if (imageList[0].GetComponent<ElementRoot>().Word == imageList[1].GetComponent<ElementRoot>().Word) //this have to change to real checking situation
+            foreach (GameObject word in imageList)
             {
-                WordShoot();
+                RPCShowAllAvailable(word.GetComponent<ChassBoardElement>().wordPos[0], word.GetComponent<ChassBoardElement>().wordPos[1]);
             }
-            else
-            {
-                foreach (GameObject word in imageList)
-                {
-                    RPCShowAllAvailable(word.GetComponent<ElementRoot>().wordPos);
-                }
-                imageList.Clear();
-            }
+            imageList.Clear();
         }
-        UpdateEmptyTile();
     }
 
     //After checking the word, if match then shoot, doing damage
@@ -232,17 +206,16 @@ public class ChassBoard : MonoBehaviourPun
     {
         foreach (GameObject word in imageList)
         {
-            print(word.GetComponentInParent<Tile>().name);
-            word.GetComponent<ElementRoot>().Word = "k";
-            RPCShowAllAvailable(word.GetComponent<ElementRoot>().wordPos);
+            RPCShowAllAvailable(word.GetComponent<ChassBoardElement>().wordPos[0], word.GetComponent<ChassBoardElement>().wordPos[1]);
+            RPCDestoryWord(word.GetComponent<ChassBoardElement>().wordPos[0], word.GetComponent<ChassBoardElement>().wordPos[1]);
         }
         imageList.Clear();
-        UpdateEmptyTile();
     }
     #endregion
 
+    //The user can only select the word, next to their final selected word
+    //No Bug
     #region CheckTileLocation
-    //Force the user can only select the word next to the clip final word
     public bool CheckTileDiff(GameObject word)
     {
         int imageListCountMax = imageList.Count;
@@ -262,8 +235,8 @@ public class ChassBoard : MonoBehaviourPun
     }
     #endregion
 
-    #region Unselect Tile
     //Check the user point on the last 2 tile for remove the last tile in the clip array
+    #region Unselect Tile
     public bool CheckPopClip(GameObject word)
     {
         int imageListCountMax = imageList.Count;
@@ -287,26 +260,71 @@ public class ChassBoard : MonoBehaviourPun
             return;
         }
         imageList[imageListCountMax - 1].GetComponent<ChassBoardElement>().SetAvailable();
-        RPCShowAllAvailable(imageList[imageListCountMax - 1].GetComponent<ElementRoot>().wordPos);
+        RPCShowAllAvailable(imageList[imageListCountMax - 1].GetComponent<ChassBoardElement>().wordPos[0], imageList[imageListCountMax - 1].GetComponent<ChassBoardElement>().wordPos[1]);
         imageList.RemoveAt(imageListCountMax - 1);
     }
     #endregion
     
-    #region RPCRelated
-    public void RPCShowAllSelected(int[] SelectedArray)
+    //Show all user the block was selected
+    #region RPCshowSelected
+    public void RPCShowAllSelected(int row, int col)
     {
-        this.GetComponent<PhotonView>().RPC("ShowAllSelected", RpcTarget.All, (int[])SelectedArray);
+        this.GetComponent<PhotonView>().RPC("ShowAllSelected", RpcTarget.All, (int)row, (int)col);
     }
 
-    public void RPCShowAllAvailable(int[] SelectedArray)
+    [PunRPC]
+    public void ShowAllSelected(int row, int col)
     {
-        this.GetComponent<PhotonView>().RPC("ShowAllAvailable", RpcTarget.All, (int[])SelectedArray);
+        mainTileBoard[row, col].gameObject.GetComponentInChildren<ChassBoardElement>().SetSelected();
+    }
+    #endregion
+
+    //Show all user the block was available
+    #region RPCshowAvailable
+    public void RPCShowAllAvailable(int row, int col)
+    {
+        this.GetComponent<PhotonView>().RPC("ShowAllAvailable", RpcTarget.All, (int)row, (int)col);
     }
 
-    public void RPCCahngeAllEmptyImage(int[] SelectedArray)
+    [PunRPC]
+    public void ShowAllAvailable(int row, int col)
     {
-        this.GetComponent<PhotonView>().RPC("ChangeAllEmptyImage", RpcTarget.All, (int[])SelectedArray);
+        mainTileBoard[row, col].gameObject.GetComponentInChildren<ChassBoardElement>().SetAvailable();
     }
+    #endregion
+
+    //Change all user board image on the specific position
+    #region RPCDestoryAlluserWord
+    public void RPCDestoryWord(int row, int col)
+    {
+        this.GetComponent<PhotonView>().RPC("DestoryWord", RpcTarget.All, (int) row, (int) col);
+        this.GetComponent<PhotonView>().RPC("ForceAllDoRefillTile", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void DestoryWord(int row, int col)
+    {
+        mainTileBoard[row, col].gameObject.GetComponentInChildren<ElementRoot>().Word = "k";
+    }
+
+    [PunRPC]
+    public void ForceAllDoRefillTile()
+    {
+        DoReFillTile();
+    }
+
+    [PunRPC]
+    public void ForceAllUpdateEmptyTile()
+    {
+        UpdateEmptyTile();
+    }
+
+    [PunRPC]
+    public void ChangeDirectPos_All(int row, int col, string word)
+    {
+        mainTileBoard[row, col].gameObject.GetComponentInChildren<ElementRoot>().Word = word;
+    }
+    #endregion
 
     [PunRPC]
     public void GenBoardImageByMasterOrder(string[] masterBoardOrder)
@@ -314,28 +332,31 @@ public class ChassBoard : MonoBehaviourPun
         GenBoardImageByMasterRandom(masterBoardOrder);
     }
 
-    [PunRPC]
-    public void ShowAllSelected(int[] wordPos)
+    #region RPCRefreshBoardforAll
+
+    public void RaiseRefresh()
     {
-        mainTileBoard[wordPos[0], wordPos[1]].gameObject.GetComponentInChildren<ChassBoardElement>().SetSelected();
+        if(refreashCount == 0)
+        {
+            this.gameObject.GetComponent<PhotonView>().RPC("AddRefreshCount", RpcTarget.All);
+            StartCoroutine(CountDown(5));
+        }
     }
 
     [PunRPC]
-    public void ShowAllAvailable(int[] wordPos)
+    public void AddRefreshCount()
     {
-        mainTileBoard[wordPos[0], wordPos[1]].gameObject.GetComponentInChildren<ChassBoardElement>().SetAvailable();
+        refreashCount++;
     }
 
-    [PunRPC]
-    public void RequestRefreshBoard(string[] masterBoardOrder)
+    IEnumerator CountDown(int second)
     {
-        RefreshBoardImageByMasterRandom(masterBoardOrder);
-    }
-
-    [PunRPC]
-    public void ChangeAllEmptyImage(int[] wordPos)
-    {
-
+        int counter = second;
+        while(counter > 0)
+        {
+            yield return new WaitForSeconds(1);
+            counter--;
+        }
     }
     #endregion
 }

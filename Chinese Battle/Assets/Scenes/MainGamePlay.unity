@@ -840,6 +840,16 @@ PrefabInstance:
       propertyPath: viewIdField
       value: 22
       objectReference: {fileID: 0}
+    - target: {fileID: 734469540695963194, guid: 9b8dcdd3cdfdbd642a137c441eb886a6,
+        type: 3}
+      propertyPath: word
+      value: b
+      objectReference: {fileID: 0}
+    - target: {fileID: 734469540695963194, guid: 9b8dcdd3cdfdbd642a137c441eb886a6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 734474791708623882, guid: 9b8dcdd3cdfdbd642a137c441eb886a6,
         type: 3}
       propertyPath: viewIdField
@@ -3150,6 +3160,11 @@ PrefabInstance:
       propertyPath: viewIdField
       value: 38
       objectReference: {fileID: 0}
+    - target: {fileID: 7179771702624574874, guid: 9b8dcdd3cdfdbd642a137c441eb886a6,
+        type: 3}
+      propertyPath: viewIdField
+      value: 69
+      objectReference: {fileID: 0}
     - target: {fileID: 7197023846715252754, guid: 9b8dcdd3cdfdbd642a137c441eb886a6,
         type: 3}
       propertyPath: viewIdField
@@ -3189,6 +3204,11 @@ PrefabInstance:
         type: 3}
       propertyPath: viewIdField
       value: 43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8861411974653691241, guid: 9b8dcdd3cdfdbd642a137c441eb886a6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9118036464690302513, guid: 9b8dcdd3cdfdbd642a137c441eb886a6,
         type: 3}
