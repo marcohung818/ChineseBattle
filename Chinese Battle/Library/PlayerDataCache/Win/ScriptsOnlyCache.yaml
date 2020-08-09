@@ -27,8 +27,6 @@ ScriptsOnlyBuild:
     - Photon.Pun.Demo.PunBasics.PlayerUI
     - Photon.Pun.Demo.SlotRacer.PlayerControl
     - Photon.Pun.Demo.SlotRacer.Utils.SplineWalker
-    PhotonUnityNetworking.Editor.dll:
-    - Photon.Pun.PunSceneSettings
     PhotonUnityNetworking.dll:
     - Photon.Pun.PhotonAnimatorView
     - Photon.Pun.PhotonRigidbodyView
@@ -325,7 +323,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 15002}
     - Class: 114
-      Script: {instanceID: 15968}
+      Script: {instanceID: 26228}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1339,7 +1337,7 @@ ScriptsOnlyBuild:
     className: FriendItem
   - hash:
       serializedVersion: 2
-      Hash: d1f4fc0a8cecd32912a1689ecfc6c290
+      Hash: a00e93a4fd06e168c4bf8539d121fa0f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ChassBoard

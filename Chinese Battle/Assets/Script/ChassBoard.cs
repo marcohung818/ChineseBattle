@@ -25,6 +25,8 @@ public class ChassBoard : MonoBehaviourPun
     private List<GameObject> imageList = new List<GameObject>(); //The List in clip
     private List<Tile[]> column = new List<Tile[]>();
     [SerializeField] private GameObject wordObject;
+    [SerializeField] private GameObject refreshButton;
+    private Coroutine refreshButtonCountDownCoroutine;
 
     //Set Singleton
     private void Awake()
@@ -127,7 +129,6 @@ public class ChassBoard : MonoBehaviourPun
         foreach (Tile emptyPos in emptyList)
         {
             int dice = UnityEngine.Random.Range(0, WordTypeHolder.instance.wordTypeList.Length);
-            //emptyPos.transform.GetChild(0).GetComponent<ElementRoot>().Word = WordTypeHolder.instance.wordTypeList[dice].s_word;
             this.GetComponent<PhotonView>().RPC("ChangeDirectPos_All", RpcTarget.All, emptyPos.GetComponent<Tile>().rowPos, emptyPos.GetComponent<Tile>().colPos, WordTypeHolder.instance.wordTypeList[dice].s_word);
         }
     }
@@ -144,7 +145,19 @@ public class ChassBoard : MonoBehaviourPun
         }
     }
 
-    private void RefreshBoardImageByMasterRandom(string[] masterBoardOrder)
+    private void RefreshBoardImage()
+    {
+        int transferBoardCount = 0;
+        foreach (Tile t in mainTileBoard)
+        {
+            int dice = UnityEngine.Random.Range(0, WordTypeHolder.instance.wordTypeList.Length);
+            t.GetComponentInChildren<ElementRoot>().Word = WordTypeHolder.instance.wordTypeList[dice].s_word;
+            masterBoardOrder[transferBoardCount] = WordTypeHolder.instance.wordTypeList[dice].s_word;
+            transferBoardCount++;
+        }
+    }
+
+    private void RefreshBoardImage(string[] masterBoardOrder)
     {
         int masterBoardCount = 0;
         foreach (Tile t in mainTileBoard)
@@ -334,26 +347,62 @@ public class ChassBoard : MonoBehaviourPun
 
     #region RPCRefreshBoardforAll
 
-    public void RaiseRefresh()
+    public void RaiseRefresh_All()
     {
-        if(refreashCount == 0)
+        if (refreashCount == 0)
         {
             this.gameObject.GetComponent<PhotonView>().RPC("AddRefreshCount", RpcTarget.All);
-            StartCoroutine(CountDown(5));
+            this.gameObject.GetComponent<PhotonView>().RPC("RefreshConfirm", RpcTarget.Others);
+            refreshButton.GetComponent<Button>().interactable = false;
         }
+        else if (refreashCount == 1)
+        {
+            RefreshBoardImage();
+            this.gameObject.GetComponent<PhotonView>().RPC("RPCRefreshBoardImageByOrder", RpcTarget.Others, (string[]) masterBoardOrder);
+            this.gameObject.GetComponent<PhotonView>().RPC("StopCountDownCoruntine", RpcTarget.All);
+        }
+    }
+
+    private void ResumeRefreshButton()
+    {
+        refreshButton.transform.GetChild(0).gameObject.GetComponent<Text>().text = "Refresh";
+        refreshButton.transform.GetChild(1).GetComponent<Text>().text = "";
+        refreshButton.GetComponent<Button>().interactable = true;
+        refreashCount = 0;
+    }
+
+    [PunRPC]
+    public void RPCRefreshBoardImageByOrder(string [] boardOrder)
+    {
+        RefreshBoardImage(boardOrder);
+    }
+
+    [PunRPC]
+    public void StopCountDownCoruntine()
+    {
+        StopCoroutine(refreshButtonCountDownCoroutine);
+        ResumeRefreshButton();
     }
 
     [PunRPC]
     public void AddRefreshCount()
     {
         refreashCount++;
+        refreshButtonCountDownCoroutine = StartCoroutine(ReFreshButtonCountDown(5));
     }
 
-    IEnumerator CountDown(int second)
+    [PunRPC]
+    public void RefreshConfirm()
+    {
+        refreshButton.transform.GetChild(0).gameObject.GetComponent<Text>().text = "Confirm Refresh";
+    }
+
+    IEnumerator ReFreshButtonCountDown(int second)
     {
         int counter = second;
         while(counter > 0)
         {
+            refreshButton.transform.GetChild(1).GetComponent<Text>().text = counter.ToString();
             yield return new WaitForSeconds(1);
             counter--;
         }

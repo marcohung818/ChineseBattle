@@ -174,8 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5baa35b0d821904478bfcf0664a835eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  percentThrehold: 0.2
-  easing: 0.5
 --- !u!1 &192578962
 GameObject:
   m_ObjectHideFlags: 0
@@ -2024,7 +2022,6 @@ GameObject:
   - component: {fileID: 1513170114}
   - component: {fileID: 1513170113}
   - component: {fileID: 1513170116}
-  - component: {fileID: 1513170115}
   m_Layer: 5
   m_Name: MainPanel
   m_TagString: Untagged
@@ -2091,18 +2088,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1513170111}
   m_CullTransparentMesh: 0
---- !u!114 &1513170115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1513170111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c757cab8c41bc4942853d4ff864447b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &1513170116
 Rigidbody2D:
   serializedVersion: 4
