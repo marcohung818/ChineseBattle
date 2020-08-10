@@ -743,9 +743,21 @@
       <Project>{306791E7-B100-6BD2-51ED-AD16B96601B1}</Project>
       <Name>PhotonUnityNetworking.Demos</Name>
     </ProjectReference>
+    <ProjectReference Include="PlayFab.csproj">
+      <Project>{750585F9-1CE0-ABB6-BC91-BC1937B3DD2A}</Project>
+      <Name>PlayFab</Name>
+    </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.csproj">
       <Project>{F1B5EE7E-AAE6-9C86-E9A9-C7C49821F35A}</Project>
       <Name>PhotonUnityNetworking.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="PlayFabEditorExtensions.csproj">
+      <Project>{42D312C8-E374-87FE-07E9-794E1F5F84B4}</Project>
+      <Name>PlayFabEditorExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="PlayFabSDKEditor.csproj">
+      <Project>{CF411F98-7380-FDC2-DDF9-6697B0342137}</Project>
+      <Name>PlayFabSDKEditor</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonWebSocket.csproj">
       <Project>{7E370BCE-09AC-3C39-70FE-FD0116ABCB97}</Project>
@@ -770,18 +782,6 @@
     <ProjectReference Include="PhotonUnityNetworking.Editor.csproj">
       <Project>{51097F2E-F4C5-5D84-3BBF-10C4B8C8A87B}</Project>
       <Name>PhotonUnityNetworking.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="PlayFab.csproj">
-      <Project>{750585F9-1CE0-ABB6-BC91-BC1937B3DD2A}</Project>
-      <Name>PlayFab</Name>
-    </ProjectReference>
-    <ProjectReference Include="PlayFabEditorExtensions.csproj">
-      <Project>{42D312C8-E374-87FE-07E9-794E1F5F84B4}</Project>
-      <Name>PlayFabEditorExtensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="PlayFabSDKEditor.csproj">
-      <Project>{CF411F98-7380-FDC2-DDF9-6697B0342137}</Project>
-      <Name>PlayFabSDKEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
