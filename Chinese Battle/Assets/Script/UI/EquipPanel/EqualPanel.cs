@@ -5,8 +5,14 @@ using UnityEngine.UI;
 
 public class EqualPanel : MonoBehaviour
 {
+    public static EqualPanel instance;
     [SerializeField] private GameObject wordEquipPanel;
     [SerializeField] private GameObject characterEquipPanel;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void EnableCharacterEquipPanel()
     {
@@ -19,4 +25,5 @@ public class EqualPanel : MonoBehaviour
         wordEquipPanel.SetActive(true);
         characterEquipPanel.SetActive(false);
     }
+
 }

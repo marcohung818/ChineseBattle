@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ElementRoot : MonoBehaviour
 {
+    public int cd;
     public string Word
     {
         get
@@ -53,6 +54,7 @@ public class ElementRoot : MonoBehaviour
             if (wordPos != -1)
             {
                 transform.GetComponent<Image>().color = WordTypeHolder.instance.wordTypeList[wordPos].word_image.color;
+                cd = WordTypeHolder.instance.wordTypeList[wordPos].cd;
             }
         }
         else
@@ -67,11 +69,19 @@ public class ElementRoot : MonoBehaviour
         {
             this.gameObject.GetComponent<ChassBoardElement>().enabled = true;
             this.gameObject.GetComponent<FunctionPanelElement>().enabled = false;
+            this.gameObject.GetComponent<EquipPanelElement>().enabled = false;
         }
         else if (gameObject.transform.parent.tag == "FunctionPanel")
         {
             this.gameObject.GetComponent<ChassBoardElement>().enabled = false;
             this.gameObject.GetComponent<FunctionPanelElement>().enabled = true;
+            this.gameObject.GetComponent<EquipPanelElement>().enabled = false;
+        }
+        else if(gameObject.transform.parent.tag == "StoreRoomPanel")
+        {
+            this.gameObject.GetComponent<ChassBoardElement>().enabled = false;
+            this.gameObject.GetComponent<FunctionPanelElement>().enabled = false;
+            this.gameObject.GetComponent<EquipPanelElement>().enabled = true;
         }
     }
 

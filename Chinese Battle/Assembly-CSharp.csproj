@@ -83,12 +83,14 @@
     <Compile Include="Assets\Script\Network\PhotonConnection.cs" />
     <Compile Include="Assets\Script\Playfab Testing\PlayfabController.cs" />
     <Compile Include="Assets\Script\Tile.cs" />
-    <Compile Include="Assets\Script\UI\CharacterEquipPanel.cs" />
-    <Compile Include="Assets\Script\UI\EqualPanel.cs" />
+    <Compile Include="Assets\Script\UI\EquipPanel\CharacterEquipPanel.cs" />
+    <Compile Include="Assets\Script\UI\EquipPanel\EqualPanel.cs" />
+    <Compile Include="Assets\Script\UI\EquipPanel\EquipBlank.cs" />
+    <Compile Include="Assets\Script\UI\EquipPanel\WordEquipPanel.cs" />
     <Compile Include="Assets\Script\UI\UISwiper.cs" />
-    <Compile Include="Assets\Script\UI\WordEquipPanel.cs" />
     <Compile Include="Assets\Script\Word\ChassBoardElement.cs" />
     <Compile Include="Assets\Script\Word\ElementRoot.cs" />
+    <Compile Include="Assets\Script\Word\EquipPanelElement.cs" />
     <Compile Include="Assets\Script\Word\FunctionPanelElement.cs" />
     <Compile Include="Assets\Script\WordTypeHolder.cs" />
     <None Include="Assets\OnlineAssetCharacter\Knight Files\Read Me.txt" />

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -718928904991468343}
   - component: {fileID: -1345911180663353673}
   - component: {fileID: -4927586358235161936}
+  - component: {fileID: 551222367464030294}
   m_Layer: 5
   m_Name: Word
   m_TagString: Untagged
@@ -94,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onSelected: 0
+  wordPos: 0000000000000000
 --- !u!114 &-859176847587972492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d7e6a45b3825df4aab62f473b61b58d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cd: 0
   word: 
 --- !u!225 &-718928904991468343
 CanvasGroup:
@@ -169,6 +172,18 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 0
   m_SynchronizeScale: 0
+--- !u!114 &551222367464030294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030788647884321693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae53ace47ca196342825b994e049d04c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &446673812764096324
 PrefabInstance:
   m_ObjectHideFlags: 0
