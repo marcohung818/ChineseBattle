@@ -10,17 +10,10 @@ public class EquipBlank : MonoBehaviour, IPointerClickHandler
     [SerializeField] private int wordLocation;
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (WordEquipPanel.instance.selecting)
+        if (WordEquipPanel.instance.selecting && WordEquipPanel.instance.selectingWord != null)
         {
             this.gameObject.GetComponent<ElementRoot>().Word = WordEquipPanel.instance.selectingWord;
-            if(wordArray == 1)
-            {
-                WordEquipPanel.instance.skillWordArray_1[wordLocation] = WordEquipPanel.instance.selectingWord;
-            }
-            else
-            {
-                WordEquipPanel.instance.skillWordArray_2[wordLocation] = WordEquipPanel.instance.selectingWord;
-            }
+            WordEquipPanel.instance.SetWordFunction(wordArray, wordLocation, WordEquipPanel.instance.selectingWord);
             WordEquipPanel.instance.selecting = false;
         }
     }
