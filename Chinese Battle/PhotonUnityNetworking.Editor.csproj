@@ -73,6 +73,7 @@
     <Compile Include="Assets\Photon\PhotonUnityNetworking\Code\Editor\PunSceneSettingsInspector.cs" />
     <Compile Include="Assets\Photon\PhotonUnityNetworking\Code\Editor\ReordableList\ReorderableListResources.cs" />
     <Compile Include="Assets\Photon\PhotonUnityNetworking\Code\Editor\ServerSettingsInspector.cs" />
+    <Compile Include="Assets\Photon\PhotonUnityNetworking\Code\Editor\Views\MonoBehaviourPunEditor.cs" />
     <Compile Include="Assets\Photon\PhotonUnityNetworking\Code\Editor\Views\PhotonAnimatorViewEditor.cs" />
     <Compile Include="Assets\Photon\PhotonUnityNetworking\Code\Editor\Views\PhotonRigidbody2DViewEditor.cs" />
     <Compile Include="Assets\Photon\PhotonUnityNetworking\Code\Editor\Views\PhotonRigidbodyViewEditor.cs" />

@@ -80,6 +80,7 @@
     <Compile Include="Assets\Script\Battle\Edge.cs" />
     <Compile Include="Assets\Script\Battle\Player.cs" />
     <Compile Include="Assets\Script\ChassBoard.cs" />
+    <Compile Include="Assets\Script\FunctionPanel.cs" />
     <Compile Include="Assets\Script\Network\PhotonConnection.cs" />
     <Compile Include="Assets\Script\Playfab Testing\PlayfabController.cs" />
     <Compile Include="Assets\Script\Tile.cs" />

@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.iOS.Extensions.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,7 +22,6 @@ public class WordEquipPanel : MonoBehaviour
 
     private void Start()
     {
-        PlayerPrefs.SetInt("panelIndex", 1);
         if (PlayerPrefs.GetInt("panelIndex") == 1)
         {
             EnableEquipPanel_1();
@@ -94,7 +92,6 @@ public class WordEquipPanel : MonoBehaviour
         {
             return "k";
         }
-
     }
 
     private void ClearWordFunction()
