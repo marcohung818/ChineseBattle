@@ -16,13 +16,11 @@ public class EqualPanel : MonoBehaviour
 
     public void EnableCharacterEquipPanel()
     {
-        wordEquipPanel.SetActive(false);
         characterEquipPanel.SetActive(true);
     }
 
     public void EnableWordEquipPanel()
     {
-        wordEquipPanel.SetActive(true);
         characterEquipPanel.SetActive(false);
     }
 

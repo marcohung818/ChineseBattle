@@ -7,7 +7,11 @@ ScriptsOnlyBuild:
     - IngameDebugConsole.DebugLogRecycledListView
     - IngameDebugConsole.DebugsOnScrollListener
     Assembly-CSharp.dll:
+    - BattleField
     - Bullet
+    - CharacterIcon
+    - CharacterPanel
+    - CharacterTypeHolder
     - ChassBoard
     - ChassBoardElement
     - Edge
@@ -58,8 +62,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -126,6 +132,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11302}
     - Class: 114
+      Script: {instanceID: 11514}
+    - Class: 114
       Script: {instanceID: 11576}
     - Class: 114
       Script: {instanceID: 11874}
@@ -148,39 +156,43 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13066}
     - Class: 114
-      Script: {instanceID: 13412}
+      Script: {instanceID: 13414}
     - Class: 114
-      Script: {instanceID: 13434}
+      Script: {instanceID: 13436}
     - Class: 114
-      Script: {instanceID: 13640}
+      Script: {instanceID: 13642}
     - Class: 114
-      Script: {instanceID: 13696}
+      Script: {instanceID: 13698}
     - Class: 114
-      Script: {instanceID: 13738}
+      Script: {instanceID: 13740}
     - Class: 114
-      Script: {instanceID: 13838}
+      Script: {instanceID: 13840}
     - Class: 114
-      Script: {instanceID: 13912}
+      Script: {instanceID: 13914}
     - Class: 114
-      Script: {instanceID: 13944}
+      Script: {instanceID: 13946}
     - Class: 114
-      Script: {instanceID: 14076}
+      Script: {instanceID: 14078}
     - Class: 114
-      Script: {instanceID: 14216}
+      Script: {instanceID: 14218}
     - Class: 114
-      Script: {instanceID: 14574}
+      Script: {instanceID: 14466}
     - Class: 114
-      Script: {instanceID: 14610}
+      Script: {instanceID: 14578}
     - Class: 114
-      Script: {instanceID: 14822}
+      Script: {instanceID: 14614}
     - Class: 114
-      Script: {instanceID: 14840}
+      Script: {instanceID: 14826}
     - Class: 114
-      Script: {instanceID: 14902}
+      Script: {instanceID: 14844}
     - Class: 114
-      Script: {instanceID: 14984}
+      Script: {instanceID: 14906}
     - Class: 114
-      Script: {instanceID: 28228}
+      Script: {instanceID: 14988}
+    - Class: 114
+      Script: {instanceID: 31240}
+    - Class: 114
+      Script: {instanceID: 34756}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -297,53 +309,57 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13186}
     - Class: 114
-      Script: {instanceID: 13372}
+      Script: {instanceID: 13248}
     - Class: 114
-      Script: {instanceID: 13412}
+      Script: {instanceID: 13374}
     - Class: 114
-      Script: {instanceID: 13434}
+      Script: {instanceID: 13414}
     - Class: 114
-      Script: {instanceID: 13478}
+      Script: {instanceID: 13436}
     - Class: 114
-      Script: {instanceID: 13600}
+      Script: {instanceID: 13480}
     - Class: 114
-      Script: {instanceID: 13614}
+      Script: {instanceID: 13602}
     - Class: 114
-      Script: {instanceID: 13640}
+      Script: {instanceID: 13616}
     - Class: 114
-      Script: {instanceID: 13696}
+      Script: {instanceID: 13642}
     - Class: 114
-      Script: {instanceID: 13738}
+      Script: {instanceID: 13698}
     - Class: 114
-      Script: {instanceID: 13838}
+      Script: {instanceID: 13740}
     - Class: 114
-      Script: {instanceID: 13912}
+      Script: {instanceID: 13840}
     - Class: 114
-      Script: {instanceID: 13944}
+      Script: {instanceID: 13914}
     - Class: 114
-      Script: {instanceID: 13970}
+      Script: {instanceID: 13946}
     - Class: 114
-      Script: {instanceID: 14004}
+      Script: {instanceID: 13972}
     - Class: 114
-      Script: {instanceID: 14020}
+      Script: {instanceID: 14006}
     - Class: 114
-      Script: {instanceID: 14076}
+      Script: {instanceID: 14022}
     - Class: 114
-      Script: {instanceID: 14216}
+      Script: {instanceID: 14078}
     - Class: 114
-      Script: {instanceID: 14574}
+      Script: {instanceID: 14218}
     - Class: 114
-      Script: {instanceID: 14610}
+      Script: {instanceID: 14384}
     - Class: 114
-      Script: {instanceID: 14822}
+      Script: {instanceID: 14578}
     - Class: 114
-      Script: {instanceID: 14840}
+      Script: {instanceID: 14614}
     - Class: 114
-      Script: {instanceID: 14902}
+      Script: {instanceID: 14826}
     - Class: 114
-      Script: {instanceID: 14984}
+      Script: {instanceID: 14844}
     - Class: 114
-      Script: {instanceID: 15026}
+      Script: {instanceID: 14906}
+    - Class: 114
+      Script: {instanceID: 14988}
+    - Class: 114
+      Script: {instanceID: 15030}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -925,12 +941,6 @@ ScriptsOnlyBuild:
     className: AutoSyncSceneToggle
   - hash:
       serializedVersion: 2
-      Hash: 6474a8164d14328bab7e4a377f5229a9
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Player
-  - hash:
-      serializedVersion: 2
       Hash: b8a5e8091ab0b8861d2add371082c5e0
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -1181,6 +1191,12 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit
     className: CurrentRoomEmptyRoomTtlProperty
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CharacterPanel
   - hash:
       serializedVersion: 2
       Hash: 4fd8bf02e3089425d3502e26c44ba31a
@@ -1561,10 +1577,10 @@ ScriptsOnlyBuild:
     className: ProceduralController
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 1c9bf1d67a38e34d3bc0ef4f6adae9de
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: CharacterEquipPanel
+    className: CharacterIcon
   - hash:
       serializedVersion: 2
       Hash: c5fd97cc10b89deaf7c60af66a6b0d5a
@@ -1595,6 +1611,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: Photon.Chat.UtilityScripts
     className: OnStartDelete
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FunctionPanel
   - hash:
       serializedVersion: 2
       Hash: 00c99ff3f40bd11590c670580e513825
@@ -1885,10 +1907,22 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
+      Hash: 48f40533197c51f249f589ca9554e0a7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CharacterTypeHolder
+  - hash:
+      serializedVersion: 2
+      Hash: 167f645d24847f35912fee4332939c05
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BattleField
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: FunctionPanel
+    className: PassValueTesting
   platform: 5
   scenePathNames:
   - Assets/Scenes/UI.unity
