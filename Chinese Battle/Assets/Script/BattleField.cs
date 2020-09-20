@@ -8,8 +8,6 @@ using UnityEngine.Animations;
 public class BattleField : MonoBehaviour
 {
     public static BattleField instance;
-    [SerializeField] GameObject HostCharacterPosition;
-    [SerializeField] GameObject ClientCharacterPosition;
 
     private void Awake()
     {
@@ -21,20 +19,15 @@ public class BattleField : MonoBehaviour
         if (PhotonNetwork.IsMasterClient)
         {
             int hostCharacterNo = PlayerPrefs.GetInt("CharacterIndex");
-            HostCharacterPosition.GetComponent<Animator>().runtimeAnimatorController = CharacterTypeHolder.instance.Characters[hostCharacterNo].CharacterAnimator;
-
+            GameObject hostcharacter = CharacterTypeHolder.instance.Characters[hostCharacterNo].CharacterGameObject;
+            PhotonNetwork.Instantiate(hostcharacter.name, new Vector3(-2.38f, 3.12f, 0f), Quaternion.identity, 0);
         }
         else
         {
-           int clientCharacterNo = PlayerPrefs.GetInt("CharacterIndex");
-           ClientCharacterPosition.GetComponent<Animator>().runtimeAnimatorController = CharacterTypeHolder.instance.Characters[clientCharacterNo].CharacterAnimator;
+            int clientCharacterNo = PlayerPrefs.GetInt("CharacterIndex");
+            GameObject clientcharacter = CharacterTypeHolder.instance.Characters[clientCharacterNo].CharacterGameObject;
+            PhotonNetwork.Instantiate(clientcharacter.name, new Vector3(2.35f, 3.15f, 0f), Quaternion.Euler(0, 180, 0), 0);
         }
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

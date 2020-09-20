@@ -7,7 +7,7 @@ using UnityEngine.Animations;
 public class CharacterType
 {
     public string CharacterName;
-    public RuntimeAnimatorController CharacterAnimator;
+    public GameObject CharacterGameObject;
     public int MaxHp;
 }
 
